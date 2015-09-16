@@ -24,7 +24,7 @@ angular.module('nodeEdit', ['ionic', 'nodeEdit.controllers'/*, 'node.services'*/
       controller: "AppController",
       onEnter: function(){
         console.log("enter leftSideMenu");
-      }
+      } 
   };
 
   var nodeListState = {
