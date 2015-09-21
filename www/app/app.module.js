@@ -14,6 +14,7 @@
          * We could place these under every feature area,
          * but this is easier to maintain.
          */ 
+        'ionic',
         'app.core',
         //'app.widgets',
 
@@ -24,6 +25,17 @@
         'app.node.list',
         'app.node.edit',
         'app.layout'
-    ]);
-
+    ])
+    .run(function($ionicPlatform) {
+        $ionicPlatform.ready(function() {
+          // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+          // for form inputs)
+          if(window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+          }
+          if(window.StatusBar) {
+            StatusBar.styleDefault();
+          }
+        });
+    });
 })();
