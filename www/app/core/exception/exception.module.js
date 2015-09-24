@@ -1,5 +1,5 @@
 (function() {
     'use strict';
 
-    angular.module('app.exception', ['app.logger']);
+    angular.module('app.core.exception', ['app.core.logger']);
 })();

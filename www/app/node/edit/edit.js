@@ -5,7 +5,7 @@
         .module('app.node.edit')
         .controller(
             'NodeEditController', 
-            [$scope, dataservice, logger, NodeEditController]
+            ['$scope', 'dataservice', 'logger', 'NodeEditController']
         )
     ;
 

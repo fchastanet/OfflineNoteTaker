@@ -1,3 +1,4 @@
+/* global toastr:false, moment:false */
 (function() {
     'use strict';
 
@@ -5,14 +6,17 @@
         /*
          * Angular modules
          */
-        'ngAnimate', 'ngRoute', 'ngSanitize',
+        'ngAnimate', 'ui.router', 
         /*
          * Our reusable cross app code modules
          */
-        'core.exception', 'core.logger'
+        'app.core.exception', 'app.core.logger'
         /*
          * 3rd Party modules
          */
         
-    ]);
+    ])        
+    .constant('toastr', toastr)
+    .constant('moment', moment);
+
 })();

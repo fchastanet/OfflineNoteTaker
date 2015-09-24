@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.logger')
+        .module('app.core.logger')
         .factory('logger', logger);
 
     logger.$inject = ['$log', 'toastr'];

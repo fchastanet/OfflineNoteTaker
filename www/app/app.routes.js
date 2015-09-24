@@ -10,7 +10,7 @@
         url: "/node",
         abstract:true,
         templateUrl: "templates/leftSideMenu.html",
-        controller: "AppController",
+        controller: "LeftSideMenuController",
         onEnter: function(){
           console.log("enter leftSideMenu");
         } 

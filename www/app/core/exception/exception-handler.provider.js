@@ -4,7 +4,7 @@
     'use strict';
 
     angular
-        .module('app.exception')
+        .module('app.core.exception')
         .provider('exceptionHandler', exceptionHandlerProvider)
         .config(config);
 

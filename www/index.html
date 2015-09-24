@@ -9,43 +9,46 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <!-- your app's js -->
-    <script src="app/core/config/config.js"></script>
-    <script src="app/core/config/config.route.js"></script>
 
+
+    <!-- your app's js -->
+    <script src="app/core/logger/logger.module.js"></script>
+    <script src="app/core/logger/logger.js"></script>
+
+    <script src="app/core/exception/exception.module.js"></script>
     <script src="app/core/exception/exception-handler.provider.js"></script>
     <script src="app/core/exception/exception.js"></script>
-    <script src="app/core/exception/exception.module.js"></script>
-
-    <script src="app/core/logger/logger.js"></script>
-    <script src="app/core/logger/logger.module.js"></script>
     
+    <script src="app/core/core.module.js"></script>
     <script src="app/core/services/synchronization.service.js"></script>
 
-    <script src="app/core/core.module.js"></script>
+    <script src="app/layout/layout.module.js"></script>
 
-    <script src="app/leftSideMenu/leftSideMenu.js"></script>
     <script src="app/leftSideMenu/leftSideMenu.module.js"></script>
+    <script src="app/leftSideMenu/leftSideMenu.js"></script>
 
-    <script src="app/node/edit/edit.js"></script>
     <script src="app/node/edit/edit.module.js"></script>
-
-    <script src="app/node/list/list.js"></script>
-    <script src="app/node/list/list.module.js"></script>
+    <script src="app/node/edit/edit.js"></script>
     
-    <script src="app/app.routes.js"></script>
+    <script src="app/node/list/list.module.js"></script>
+    <script src="app/node/list/list.js"></script>
+    
     <script src="app/app.module.js"></script>
+    <script src="app/app.routes.js"></script>
+    <script src="app/app.run.js"></script>
   </head>
   <body>
     <ion-nav-view></ion-nav-view>
     <script>
     try {
       angular.element(document).ready(function() {
-        angular.bootstrap(document.getElementsByTagName('html'), ['app.node.list']);
+        angular.bootstrap(document.getElementsByTagName('html'), ['app']);
         console.log('started');
       });
     } catch(err) {

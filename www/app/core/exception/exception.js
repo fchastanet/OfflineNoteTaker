@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.exception')
+        .module('app.core.exception')
         .factory('exception', exception);
 
     /* @ngInject */

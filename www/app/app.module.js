@@ -1,7 +1,13 @@
 (function() {
     'use strict';
 
-    angular.module('app', [
+    var config = {
+      appErrorPrefix: '[NG-Modular Error] ', //Configure the exceptionHandler decorator
+      appTitle: 'Angular Modular Demo',
+      version: '1.0.0'
+    };
+
+    var app = angular.module('app', [
         /*
          * Order is not important. Angular makes a
          * pass to register all of the modules listed
@@ -25,17 +31,25 @@
         'app.node.list',
         'app.node.edit',
         'app.layout'
-    ])
-    .run(function($ionicPlatform) {
-        $ionicPlatform.ready(function() {
-          // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-          // for form inputs)
-          if(window.cordova && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-          }
-          if(window.StatusBar) {
-            StatusBar.styleDefault();
-          }
-        });
-    });
+    ]);
+    app.value('config', config);
+    app.config(toastrConfig);
+    app.config(logExceptionConfig);
+  
+    /* @ngInject */
+    function toastrConfig(toastr) {
+      toastr.options.timeOut = 4000;
+      toastr.options.positionClass = 'toast-bottom-right';
+    }
+  
+    /* @ngInject */
+    function logExceptionConfig($logProvider, exceptionHandlerProvider) {
+      // turn debugging off/on (no info or warn)
+      if ($logProvider.debugEnabled) {
+          $logProvider.debugEnabled(true);
+      }
+  
+      // Configure the common exception handler
+      exceptionHandlerProvider.configure(config.appErrorPrefix);
+    }
 })();

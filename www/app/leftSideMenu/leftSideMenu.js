@@ -5,7 +5,7 @@
         .module('app.leftSideMenu')
         .controller(
             'LeftSideMenuController', 
-            [$scope, dataservice, logger, LeftSideMenuController]
+            ['$scope', 'dataservice', 'logger', 'LeftSideMenuController']
         )
     ;
 

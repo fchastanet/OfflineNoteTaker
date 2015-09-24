@@ -1,8 +1,22 @@
 {
   "name": "OfflineNoteTaker",
   "private": "true",
+  "registry": {
+    "search": [
+      "https://bower.herokuapp.com"
+    ]
+  },
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.1.0",
-    "bower-angular-pouchdb": "angular-pouchdb/bower-angular-pouchdb"
+    "bower-angular-pouchdb": "angular-pouchdb/bower-angular-pouchdb",
+    "ionic": "driftyco/ionic-bower#1.1.0"
+  },
+  "dependencies": {
+    "angular": "1.4.3",
+    "toastr": "~2.1.2",
+    "moment": "~2.6.0",
+    "jquery": "~2.1.0",
+    "angular-ui-router": "~0.2.13",
+    "angular-animate": "~1.4.3",
+    "angular-sanitize": "~1.4.3"
   }
 }
