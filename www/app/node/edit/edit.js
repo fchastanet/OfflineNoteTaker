@@ -3,14 +3,11 @@
 
     angular
         .module('app.node.edit')
-        .controller(
-            'NodeEditController', 
-            ['$scope', 'dataservice', 'logger', 'NodeEditController']
-        )
+        .controller('NodeEditController', NodeEditController)
     ;
 
     /* @ngInject */
-    function NodeEditController($scope, dataservice, logger) {
+    function NodeEditController($scope, synchronizationService, logger) {
         /*jshint validthis: true */
 
     }

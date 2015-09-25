@@ -3,14 +3,11 @@
 
     angular
         .module('app.leftSideMenu')
-        .controller(
-            'LeftSideMenuController', 
-            ['$scope', 'dataservice', 'logger', 'LeftSideMenuController']
-        )
+        .controller('LeftSideMenuController', LeftSideMenuController)
     ;
 
     /* @ngInject */
-    function LeftSideMenuController($scope, dataservice, logger) {
+    function LeftSideMenuController($scope, synchronizationService, logger) {
         /*jshint validthis: true */
 
     }

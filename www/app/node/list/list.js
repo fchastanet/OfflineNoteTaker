@@ -3,18 +3,17 @@
 
     angular
         .module('app.node.list')
-        .controller('NodeListController', 
-            [ '$scope', 'dataservice', 'logger', NodeListController ]
-        )
+        .controller('NodeListController', NodeListController)
     ;
 
     /* @ngInject */
-    function NodeListController($scope, dataservice, logger) {
+    function NodeListController($scope, synchronizationService, logger) {
         /*jshint validthis: true */
         $scope.nodeList = [
            {title: "titre 1"},
             {title: "titre 2"},
             {title: "titre 3"},
+            {title: "titre 4"},
         ];
     }
 })();
