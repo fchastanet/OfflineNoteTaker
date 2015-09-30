@@ -23,6 +23,10 @@
                     'menuContent': {
                         templateUrl: "app/node/list/list.html",
                         controller: "NodeListController as nodeListController"
+                    },
+                    'searchMenuContent': {
+                        templateUrl: "app/node/search/search.html",
+                        controller: "NodeSearchController as nodeSearchController"   
                     }
                 },
                 onEnter: function() {

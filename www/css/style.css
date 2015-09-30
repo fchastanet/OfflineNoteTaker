@@ -1,1 +1,6 @@
-/* Empty. Add your own CSS if you like */
+.nodeListHeader button.dark {
+	color: #000;
+}	
+.nodeListHeader button.dark:hover {
+	color: #000;
+}	
