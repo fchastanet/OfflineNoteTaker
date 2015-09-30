@@ -2,9 +2,9 @@
     'use strict';
 
     var config = {
-      appErrorPrefix: '[NG-Modular Error] ', //Configure the exceptionHandler decorator
-      appTitle: 'Angular Modular Demo',
-      version: '1.0.0'
+        appErrorPrefix: '[NG-Modular Error] ', //Configure the exceptionHandler decorator
+        appTitle: 'Angular Modular Demo',
+        version: '1.0.0'
     };
 
     var app = angular.module('app', [
@@ -19,7 +19,7 @@
          * Everybody has access to these.
          * We could place these under every feature area,
          * but this is easier to maintain.
-         */ 
+         */
         'ionic',
         'app.core',
         //'app.widgets',
@@ -27,29 +27,29 @@
         /*
          * Feature areas
          */
-        'app.leftSideMenu',
         'app.node.list',
         'app.node.edit',
+        'app.node.search',
         'app.layout'
     ]);
     app.value('config', config);
     app.config(toastrConfig);
     app.config(logExceptionConfig);
-  
+
     /* @ngInject */
     function toastrConfig(toastr) {
-      toastr.options.timeOut = 4000;
-      toastr.options.positionClass = 'toast-bottom-right';
+        toastr.options.timeOut = 4000;
+        toastr.options.positionClass = 'toast-bottom-right';
     }
-  
+
     /* @ngInject */
     function logExceptionConfig($logProvider, exceptionHandlerProvider) {
-      // turn debugging off/on (no info or warn)
-      if ($logProvider.debugEnabled) {
-          $logProvider.debugEnabled(true);
-      }
-  
-      // Configure the common exception handler
-      exceptionHandlerProvider.configure(config.appErrorPrefix);
+        // turn debugging off/on (no info or warn)
+        if ($logProvider.debugEnabled) {
+            $logProvider.debugEnabled(true);
+        }
+
+        // Configure the common exception handler
+        exceptionHandlerProvider.configure(config.appErrorPrefix);
     }
 })();
