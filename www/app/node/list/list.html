@@ -26,7 +26,7 @@
     ng-href="#"
     ng-class="{ active: node.isActive}"
   >
-    <p>{{node.title}}</p>
+  <a ui-sref="node.list.view({ nodeId: node.id })">{{node.title}}</a>
   </ion-item>
 </ion-list>
 </ion-content>

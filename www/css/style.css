@@ -1,6 +1,12 @@
-.nodeListHeader button.dark {
+.nodeLayoutHeader button.dark {
 	color: #000;
 }	
-.nodeListHeader button.dark:hover {
+.nodeLayoutHeader button.dark:hover {
 	color: #000;
 }	
+
+#navBar .navBarContent  {
+	z-index: 11 !important;
+	width: 100%;
+	display: flex;
+}

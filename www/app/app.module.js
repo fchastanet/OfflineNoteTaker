@@ -29,6 +29,7 @@
          */
         'app.node.list',
         'app.node.edit',
+        'app.node.view',
         'app.node.search',
         'app.layout'
     ]);

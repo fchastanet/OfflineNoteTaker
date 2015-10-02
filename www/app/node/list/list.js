@@ -10,12 +10,16 @@
     function NodeListController($scope, synchronizationService, logger) {
         /*jshint validthis: true */
         $scope.nodeList = [{
+            id: 1,
             title: "titre 1"
         }, {
+            id: 2,
             title: "titre 2"
         }, {
+            id: 3,
             title: "titre 3"
         }, {
+            id: 4,
             title: "titre 4"
         }, ];
 
