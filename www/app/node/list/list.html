@@ -1,32 +1,34 @@
 <!-- list of nodes -->
-<ion-content class="padding">
-<ion-list 
-    can-swipe="true" 
-    animation="my-repeat-animation"
+<ion-view class="padding" title="Node List">
+<ion-content overflow-scroll="true">
+    <ion-list 
+        can-swipe="true" 
+        animation="my-repeat-animation"
 
-    can-delete="true"
-    show-delete="isDeletingItems"
-    on-delete="deleteListItem(item, index)"
-    delete-icon="ion-minus-circled"
+        can-delete="true"
+        show-delete="isDeletingItems"
+        on-delete="deleteListItem(item, index)"
+        delete-icon="ion-minus-circled"
 
-    on-refresh-holding="refreshHolding()"
-    on-refresh-opening="refreshOpening(ratio)"
-    on-refresh="refreshItems()"
-    refresh-complete="refreshComplete"
+        on-refresh-holding="refreshHolding()"
+        on-refresh-opening="refreshOpening(ratio)"
+        on-refresh="refreshItems()"
+        refresh-complete="refreshComplete"
 
-    option-buttons="optionButtons1"
->
-  <ion-item 
-    item="node"
-    ng-click="itemClick()"
-    collection-repeat="node in nodeList" 
-    can-delete="false"
-    can-reorder="false"
-    can-swipe="false"
-    ng-href="#"
-    ng-class="{ active: node.isActive}"
-  >
-  <a ui-sref="node.list.view({ nodeId: node.id })">{{node.title}}</a>
-  </ion-item>
-</ion-list>
+        option-buttons="optionButtons1"
+    >
+      <ion-item 
+        item="node"
+        ng-click="itemClick()"
+        collection-repeat="node in nodeList" 
+        can-delete="false"
+        can-reorder="false"
+        can-swipe="false"
+        ng-href="#"
+        ng-class="{ active: node.isActive}"
+      >
+      <a ui-sref="node.list.view({ nodeId: node.id })">{{node.title}}</a>
+      </ion-item>
+    </ion-list>
 </ion-content>
+</ion-view>

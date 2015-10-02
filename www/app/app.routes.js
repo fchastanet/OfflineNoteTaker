@@ -4,11 +4,12 @@
     angular.module('app')
         .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             //disable view cache
-            $ionicConfigProvider.views.maxCache(0);
+            //$ionicConfigProvider.views.maxCache(0);
 
             var nodeListMenuState = {
                 url: '/node',
                 abstract: true,
+                cache: false,
                 templateUrl: 'app/layout/layout.html',
                 controller: 'NodeListMenuController as nodeListMenuController',
                 onEnter: function() {

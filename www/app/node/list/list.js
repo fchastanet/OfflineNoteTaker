@@ -8,6 +8,7 @@
 
     /* @ngInject */
     function NodeListController($scope, synchronizationService, logger) {
+        console.log('enter NodeListController');
         /*jshint validthis: true */
         $scope.nodeList = [{
             id: 1,
