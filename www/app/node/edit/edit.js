@@ -9,6 +9,8 @@
     /* @ngInject */
     function NodeEditController($scope, synchronizationService, logger) {
         /*jshint validthis: true */
-
+        $scope.node =  {
+            title: 'New Node'
+        };
     }
 })();

@@ -6,10 +6,9 @@
             //disable view cache
             //$ionicConfigProvider.views.maxCache(0);
 
-            var nodeListMenuState = {
+            var nodeState = {
                 url: '/node',
                 abstract: true,
-                cache: false,
                 templateUrl: 'app/layout/layout.html',
                 controller: 'NodeListMenuController as nodeListMenuController',
                 onEnter: function() {
@@ -19,7 +18,7 @@
 
             var nodeListState = {
                 url: '/list', //-> /node/list
-                parent: nodeListMenuState, //mandatory
+                parent: nodeState, //mandatory
                 views: {
                     'content': {
                         templateUrl: 'app/node/list/list.html',
@@ -33,6 +32,11 @@
                         templateUrl: 'app/layout/menu.html',
                         controller: 'MenuController as menuController'   
                     },
+                    'rightHeaderContent@node': {
+                        templateUrl: 'app/node/list/rightHeader.html',
+                        controller: 'NodeListController as nodeListController',
+                        cache: false
+                    },
                     'rightMenuContent': {
                         templateUrl: 'app/node/search/filterOptions.html',
                         controller: 'NodeSearchController as nodeSearchController'   
@@ -45,22 +49,50 @@
 
             var nodeViewState = {
                 url: '/view/:nodeId', //-> /node/list
-                parent: nodeListMenuState, //mandatory
+                parent: nodeState, //mandatory
                 views: {
                     'content': {
                         templateUrl: 'app/node/view/view.html',
                         controller: 'NodeViewController as nodeViewController'
                     },
-                    /*'headerContent': {
-                        templateUrl: 'app/node/view/header.html',
-                        controller: 'NodeSearchController as nodeSearchController'   
-                    },*/
+                    'rightHeaderContent@node': {
+                        templateUrl: 'app/node/view/rightHeader.html',
+                        controller: 'NodeViewController as nodeListController',
+                        cache: false
+                    },
                     'leftMenuContent': {
                         templateUrl: 'app/layout/menu.html',
                         controller: 'MenuController as menuController'   
                     },
                     'rightMenuContent': {
                         templateUrl: 'app/node/view/properties.html',
+                        controller: 'NodeSearchController as nodeSearchController'   
+                    }
+                },
+                onEnter: function() {
+                    console.log('enter nodeListMenu.nodeList');
+                }
+            };
+
+            var nodeEditState = {
+                url: '/edit/:nodeId', //-> /node/list
+                parent: nodeState, //mandatory
+                views: {
+                    'content': {
+                        templateUrl: 'app/node/edit/edit.html',
+                        controller: 'NodeEditController as nodeViewController'
+                    },
+                    'rightHeaderContent@node': {
+                        templateUrl: 'app/node/edit/rightHeader.html',
+                        controller: 'NodeEditController as nodeListController',
+                        cache: false
+                    },
+                    'leftMenuContent': {
+                        templateUrl: 'app/layout/menu.html',
+                        controller: 'MenuController as menuController'   
+                    },
+                    'rightMenuContent': {
+                        templateUrl: 'app/node/edit/properties.html',
                         controller: 'NodeSearchController as nodeSearchController'   
                     }
                 },
@@ -84,9 +116,10 @@
             };*/
 
             $stateProvider
-                .state('node', nodeListMenuState)
+                .state('node', nodeState)
                 .state('node.list', nodeListState)
-                .state('node.list.view', nodeViewState)
+                .state('node.view', nodeViewState)
+                .state('node.edit', nodeEditState)
                 /*.state('leftSideMenu.nodeSearch', {
                   url: '/search',
                   views: {

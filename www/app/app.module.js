@@ -24,6 +24,8 @@
         'app.core',
         //'app.widgets',
 
+        'monospaced.elastic',
+
         /*
          * Feature areas
          */

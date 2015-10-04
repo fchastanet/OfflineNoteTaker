@@ -1,0 +1,13 @@
+<ion-view has-header="false" has-subheader="false" title="{{node.title}}">
+    <ion-content ng-class="stylemodeClass" class="scroll-content has-header" has-header="false" has-subheader="false" padding="true">
+        <label class="item item-input">
+            <span class="input-label">Titre</span>
+            <input type="text" ng-model="title">
+        </label>
+        <ion-nav-view name="additionalProperties"></ion-nav-view>
+        <label class="item item-input">
+            <textarea msd-elastic placeholder="markdown content" ng-model="content"></textarea>
+        </label>
+    </ion-content>
+    
+</ion-view>

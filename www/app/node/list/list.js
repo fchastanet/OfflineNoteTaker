@@ -36,7 +36,9 @@
                 alert(button.text + ' Button: ' + item.title)
             }
         }];
-
+        $scope.createNode = function() {
+            
+        }
         $scope.deleteNode = function(item) {
 
         };
