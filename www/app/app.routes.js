@@ -24,18 +24,9 @@
                         templateUrl: 'app/node/list/list.html',
                         controller: 'NodeListController as nodeListController'
                     },
-                    /*'headerContent': {
-                        templateUrl: 'app/node/search/search.html',
-                        controller: 'NodeSearchController as nodeSearchController'   
-                    },*/
                     'leftMenuContent': {
                         templateUrl: 'app/layout/menu.html',
                         controller: 'MenuController as menuController'   
-                    },
-                    'rightHeaderContent@node': {
-                        templateUrl: 'app/node/list/rightHeader.html',
-                        controller: 'NodeListController as nodeListController',
-                        cache: false
                     },
                     'rightMenuContent': {
                         templateUrl: 'app/node/search/filterOptions.html',
@@ -55,18 +46,9 @@
                         templateUrl: 'app/node/view/view.html',
                         controller: 'NodeViewController as nodeViewController'
                     },
-                    'rightHeaderContent@node': {
-                        templateUrl: 'app/node/view/rightHeader.html',
-                        controller: 'NodeViewController as nodeListController',
-                        cache: false
-                    },
                     'leftMenuContent': {
                         templateUrl: 'app/layout/menu.html',
                         controller: 'MenuController as menuController'   
-                    },
-                    'rightMenuContent': {
-                        templateUrl: 'app/node/view/properties.html',
-                        controller: 'NodeSearchController as nodeSearchController'   
                     }
                 },
                 onEnter: function() {
@@ -80,20 +62,11 @@
                 views: {
                     'content': {
                         templateUrl: 'app/node/edit/edit.html',
-                        controller: 'NodeEditController as nodeViewController'
-                    },
-                    'rightHeaderContent@node': {
-                        templateUrl: 'app/node/edit/rightHeader.html',
-                        controller: 'NodeEditController as nodeListController',
-                        cache: false
+                        controller: 'NodeEditController as nodeEditController'
                     },
                     'leftMenuContent': {
                         templateUrl: 'app/layout/menu.html',
                         controller: 'MenuController as menuController'   
-                    },
-                    'rightMenuContent': {
-                        templateUrl: 'app/node/edit/properties.html',
-                        controller: 'NodeSearchController as nodeSearchController'   
                     }
                 },
                 onEnter: function() {

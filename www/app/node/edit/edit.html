@@ -1,4 +1,12 @@
-<ion-view has-header="false" has-subheader="false" title="{{node.title}}">
+<ion-view title="{{node.title}}">
+    <!-- nav bar override -->
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>        
+    </ion-nav-buttons>
+
+    <ion-nav-back-button></ion-nav-back-button>
+
+    <!-- list content -->
     <ion-content ng-class="stylemodeClass" class="scroll-content has-header" has-header="false" has-subheader="false" padding="true">
         <label class="item item-input">
             <span class="input-label">Titre</span>

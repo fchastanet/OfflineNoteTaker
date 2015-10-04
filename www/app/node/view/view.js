@@ -13,5 +13,9 @@
             title: 'coucou',
             content: 'coucou le monde'
         };
+
+        $scope.duplicate = function() {
+
+        };
     }
 })();
