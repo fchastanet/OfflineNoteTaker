@@ -10,7 +10,9 @@
         /*
          * Our reusable cross app code modules
          */
-        'app.core.exception', 'app.core.logger'
+        'app.core.exception', 
+        'app.core.logger',
+        'app.core.services'
         /*
          * 3rd Party modules
          */

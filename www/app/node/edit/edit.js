@@ -7,10 +7,21 @@
     ;
 
     /* @ngInject */
-    function NodeEditController($scope, synchronizationService, logger) {
+    function NodeEditController(
+        $scope, dbService, logger
+    ) {
         /*jshint validthis: true */
         $scope.node =  {
-            title: 'New Node'
+        };
+        $scope.viewTitle = 'New Node';
+
+        //methods
+        $scope.create = function(node) {
+            dbService.post(angular.copy(node), function(err, res) {
+                if (err) {
+                    logger.error(err);
+                }
+            });
         };
     }
 })();

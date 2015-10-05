@@ -7,10 +7,10 @@
         .controller('NodeListMenuController', NodeListMenuController);
 
     /* @ngInject */
-    function NodeListController($scope, synchronizationService, logger) {
+    function NodeListController($scope, dbService, logger) {
         console.log('enter NodeListController');
         /*jshint validthis: true */
-        $scope.nodeList = [{
+        /*$scope.nodeList = [{
             id: 1,
             title: "titre 1"
         }, {
@@ -22,7 +22,8 @@
         }, {
             id: 4,
             title: "titre 4"
-        }, ];
+        }, ];*/
+        $scope.nodeList = dbService.nodeList;
 
         $scope.itemContextualMenu = [{
             text: 'Edit',
@@ -36,16 +37,18 @@
                 alert(button.text + ' Button: ' + item.title)
             }
         }];
-        $scope.createNode = function() {
-            
-        }
+        $scope.toggleOnline = function() {
+            dbService.toggleOnline();
+        };
+
+        
         $scope.deleteNode = function(item) {
 
         };
     }
 
     /* @ngInject */
-    function NodeListMenuController($scope, synchronizationService, logger) {
+    function NodeListMenuController($scope, logger) {
         /*jshint validthis: true */
 
     }

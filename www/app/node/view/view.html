@@ -2,7 +2,9 @@
     <!-- nav bar override -->
     <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-        
+        <button class="button button-icon" ng-click="toggleOnline()">
+            <i class="icon" ng-class="{'ion-connection-bars' : online, 'ion-alert-circled' : !online}"></i>
+        </button>
     </ion-nav-buttons>
 
     <ion-nav-buttons side="right" >

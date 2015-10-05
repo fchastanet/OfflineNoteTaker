@@ -3,56 +3,30 @@
     <!-- nav bar override -->
     <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-        
+        <button class="button button-icon" ng-click="toggleOnline()">
+            <i class="icon" ng-class="{'ion-connection-bars' : online, 'ion-alert-circled' : !online}"></i>
+        </button>
     </ion-nav-buttons>
-
     <ion-nav-title>
         <div class="bar bar-header item-input-inset">
-          <label class="item-input-wrapper">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Search">
-          </label>
-          <button class="button button-icon icon ion-ios-arrow-thin-right light"></button>
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" placeholder="Search">
+            </label>
+            <button class="button button-icon icon ion-ios-arrow-thin-right light"></button>
         </div>
     </ion-nav-title>
-
     <ion-nav-back-button></ion-nav-back-button>
-
-    <ion-nav-buttons side="right" >
+    <ion-nav-buttons side="right">
         <button ui-sref="node.edit()" class="button button-icon icon ion-ios-plus-outline"></button>
         <button class="button button-icon button-clear ion-funnel" menu-toggle="right"></button>
     </ion-nav-buttons>
-
     <!-- list content -->
     <ion-content overflow-scroll="true">
-        <ion-list 
-            can-swipe="true" 
-            animation="my-repeat-animation"
-
-            can-delete="true"
-            show-delete="isDeletingItems"
-            on-delete="deleteListItem(item, index)"
-            delete-icon="ion-minus-circled"
-
-            on-refresh-holding="refreshHolding()"
-            on-refresh-opening="refreshOpening(ratio)"
-            on-refresh="refreshItems()"
-            refresh-complete="refreshComplete"
-
-            option-buttons="optionButtons1"
-        >
-          <ion-item 
-            item="node"
-            ng-click="itemClick()"
-            collection-repeat="node in nodeList" 
-            can-delete="false"
-            can-reorder="false"
-            can-swipe="false"
-            ng-href="#"
-            ng-class="{ active: node.isActive}"
-          >
-          <a ui-sref="node.view({ nodeId: node.id })">{{node.title}}</a>
-          </ion-item>
+        <ion-list can-swipe="true" animation="my-repeat-animation" can-delete="true" show-delete="isDeletingItems" on-delete="deleteListItem(item, index)" delete-icon="ion-minus-circled" on-refresh-holding="refreshHolding()" on-refresh-opening="refreshOpening(ratio)" on-refresh="refreshItems()" refresh-complete="refreshComplete" option-buttons="optionButtons1">
+            <ion-item item="node" ng-click="itemClick()" collection-repeat="node in nodeList" can-delete="false" can-reorder="false" can-swipe="false" ng-href="#" ng-class="{ active: node.isActive}">
+                <a ui-sref="node.view({ nodeId: node.id })">{{node.title}}</a>
+            </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>

@@ -8,13 +8,13 @@
     ;
 
     /* @ngInject */
-    function LayoutController($scope, synchronizationService, logger) {
+    function LayoutController($scope, logger) {
         /*jshint validthis: true */
 
     }
 
     /* @ngInject */
-    function MenuController($scope, synchronizationService, logger) {
+    function MenuController($scope, logger) {
         /*jshint validthis: true */
 
     }
