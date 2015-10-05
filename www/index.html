@@ -26,6 +26,7 @@
     <script src="lib/toastr/toastr.js"></script>
     <script src="lib/moment/moment.js"></script>
     <script src="lib/pouchdb/dist/pouchdb.js"></script>
+    <script src="lib/angular-pouchdb/angular-pouchdb.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
@@ -40,8 +41,9 @@
     <script src="app/core/exception/exception-handler.provider.js"></script>
     <script src="app/core/exception/exception.js"></script>
 
-    <script src="app/core/services/services.module.js"></script>
-    <script src="app/core/services/db.service.js"></script>
+    <script src="app/core/db/db.module.js"></script>
+    <script src="app/core/db/pouchCollection.provider.js"></script>
+
     <script src="app/core/core.module.js"></script>
 
     <script src="app/layout/layout.module.js"></script>

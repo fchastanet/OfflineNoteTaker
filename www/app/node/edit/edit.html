@@ -11,7 +11,7 @@
 
     <!-- list content -->
     <ion-content ng-class="stylemodeClass" class="scroll-content has-header" has-header="false" has-subheader="false" padding="true">
-        <form ng-submit="nodeEditController.create(node)">
+        <form ng-submit="create(node)">
             <label class="item item-input">
                 <span class="input-label" >Title</span>
                 <input type="text" placeholder="node title" ng-model="node.title">

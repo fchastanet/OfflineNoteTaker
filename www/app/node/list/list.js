@@ -7,7 +7,7 @@
         .controller('NodeListMenuController', NodeListMenuController);
 
     /* @ngInject */
-    function NodeListController($scope, dbService, logger) {
+    function NodeListController($scope, pouchCollection, logger) {
         console.log('enter NodeListController');
         /*jshint validthis: true */
         /*$scope.nodeList = [{
@@ -23,7 +23,7 @@
             id: 4,
             title: "titre 4"
         }, ];*/
-        $scope.nodeList = dbService.nodeList;
+        $scope.nodeList = pouchCollection.nodeList;
 
         $scope.itemContextualMenu = [{
             text: 'Edit',
@@ -38,7 +38,7 @@
             }
         }];
         $scope.toggleOnline = function() {
-            dbService.toggleOnline();
+            pouchCollection.$toggleOnline();
         };
 
         

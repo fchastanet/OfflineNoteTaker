@@ -7,7 +7,7 @@
     ;
 
     /* @ngInject */
-    function NodeViewController($scope, dbService, logger) {
+    function NodeViewController($scope, pouchCollection, logger) {
         /*jshint validthis: true */
         $scope.node =  {
             title: 'coucou',

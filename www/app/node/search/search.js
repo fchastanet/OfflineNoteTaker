@@ -7,7 +7,7 @@
     ;
 
     /* @ngInject */
-    function NodeSearchController($scope, dbService, logger) {
+    function NodeSearchController($scope, pouchCollection, logger) {
         /*jshint validthis: true */
        
     }

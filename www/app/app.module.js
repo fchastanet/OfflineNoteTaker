@@ -4,7 +4,11 @@
     var config = {
         appErrorPrefix: '[NG-Modular Error] ', //Configure the exceptionHandler decorator
         appTitle: 'Angular Modular Demo',
-        version: '1.0.0'
+        version: '1.0.0',
+        pouchdb: {
+            collectionUrl: 'http://127.0.0.1:5984/nodes', // The pouchDB url where the collection lives
+            options: {}
+        }
     };
 
     var app = angular.module('app', [
@@ -38,6 +42,7 @@
     app.value('config', config);
     app.config(toastrConfig);
     app.config(logExceptionConfig);
+    app.config(pouchCollectionConfig);
 
     /* @ngInject */
     function toastrConfig(toastr) {
@@ -54,5 +59,10 @@
 
         // Configure the common exception handler
         exceptionHandlerProvider.configure(config.appErrorPrefix);
+    }
+
+    /* @ngInject */
+    function pouchCollectionConfig(pouchCollectionProvider) {
+        pouchCollectionProvider.configure(config.pouchdb);
     }
 })();

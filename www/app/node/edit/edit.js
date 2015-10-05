@@ -8,7 +8,7 @@
 
     /* @ngInject */
     function NodeEditController(
-        $scope, dbService, logger
+        $scope, $state, pouchCollection, logger
     ) {
         /*jshint validthis: true */
         $scope.node =  {
@@ -17,11 +17,12 @@
 
         //methods
         $scope.create = function(node) {
-            dbService.post(angular.copy(node), function(err, res) {
+            pouchCollection.$add(angular.copy(node), function(err, res) {
                 if (err) {
                     logger.error(err);
                 }
             });
+            $state.go('node.list');
         };
     }
 })();

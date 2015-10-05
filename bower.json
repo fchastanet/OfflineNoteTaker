@@ -7,7 +7,7 @@
     ]
   },
   "devDependencies": {
-    "bower-angular-pouchdb": "angular-pouchdb/bower-angular-pouchdb",
+    "angular-pouchdb": "angular-pouchdb/bower-angular-pouchdb",
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
