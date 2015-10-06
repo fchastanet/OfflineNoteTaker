@@ -11,8 +11,6 @@
      * @return {[type]}
      */
     function pouchCollectionProvider() {
-        this.pouchCollectionInstance = null;
-
         /* jshint validthis:true */
         this.config = {
             collectionUrl: undefined,
@@ -23,12 +21,10 @@
             this.config.collectionUrl = config.collectionUrl;
             this.config.options = config.options;
         };
+        var that = this;
 
         /* @ngInject */
         this.$get = function ($timeout, pouchDB, $q, exception, logger) {
-            if (this.pouchCollectionInstance) {
-                return this.pouchCollectionInstance;
-            }
             /**
              * @class item in the collection
              * @param item
@@ -42,6 +38,11 @@
                 angular.extend(this, item);
             }
 
+            /**
+             * create a pouchCollection
+             * from config {String} collectionUrl The pouchDB url where the collection lives
+             * @return {Array}                An array that will hold the items in the collection
+             */
             var pouchObject = {
                 collection: [],
                 indexes: {},
@@ -169,23 +170,14 @@
                 );
             };
 
-            /**
-             * create a pouchCollection
-             * from config {String} collectionUrl The pouchDB url where the collection lives
-             * @return {Array}                An array that will hold the items in the collection
+            /*
+             * PUBLIC METHODS
              */
-            this.pouchCollectionInstance = {
-                collection: [],
-                online: false,
-                /*
-                 * PUBLIC METHODS
-                 */
-                $toggleOnline: $toggleOnline,
-                $add: $add,
-                $remove: $remove,
-                $update: $update
-            };
-            return this.pouchCollectionInstance;
+            pouchObject.$toggleOnline = $toggleOnline;
+            pouchObject.$add = $add;
+            pouchObject.$remove = $remove;
+            pouchObject.$update = $update;
+            return pouchObject;
         };
     }
 
