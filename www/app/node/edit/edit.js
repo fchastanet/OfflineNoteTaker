@@ -17,12 +17,18 @@
 
         //methods
         $scope.create = function(node) {
-            pouchCollection.$add(angular.copy(node), function(err, res) {
+            pouchCollection.$add(node).then( function(err, res) {
                 if (err) {
                     logger.error(err);
+                } else {
+                    $state.transitionTo('node.list', {}, {
+                        reload: true,
+                        inherit: false,
+                        notify: true
+                    });
                 }
             });
-            $state.go('node.list');
+
         };
     }
 })();

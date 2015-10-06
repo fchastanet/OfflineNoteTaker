@@ -23,7 +23,11 @@
             id: 4,
             title: "titre 4"
         }, ];*/
-        $scope.nodeList = pouchCollection.nodeList;
+        $scope.$on('$ionicView.enter', function() {
+            // code to run each time view is entered
+            $scope.nodeList = pouchCollection.collection;    
+        });
+        
 
         $scope.itemContextualMenu = [{
             text: 'Edit',
