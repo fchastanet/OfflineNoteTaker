@@ -8,7 +8,7 @@
 
     /* @ngInject */
     function NodeEditController(
-        $scope, $state, pouchCollection, logger
+        $scope, $rootScope, $state, pouchCollection, logger
     ) {
         /*jshint validthis: true */
         $scope.node =  {
@@ -17,7 +17,7 @@
 
         //methods
         $scope.create = function(node) {
-            pouchCollection.$add(node).then( function(err, res) {
+            pouchCollection.$add(node).then(function(err, res) {
                 if (err) {
                     logger.error(err);
                 } else {
@@ -30,5 +30,16 @@
             });
 
         };
+
+        $rootScope.$on(
+            '$stateChangeStart', 
+            function(event, toState, toParams, fromState, fromParams) { 
+                if (toState.name === 'node.edit') {
+                    if (toParams.nodeId === '') {
+                        $scope.node = {};
+                    }
+                }
+            }
+        );
     }
 })();
