@@ -14,17 +14,33 @@
         /* jshint validthis:true */
         this.config = {
             collectionUrl: undefined,
-            options: {}
+            options: {},
+            debug: false
         };
+        this.db = null;
+        this.pouchDB = null;
 
         this.configure = function (config) {
             this.config.collectionUrl = config.collectionUrl;
             this.config.options = config.options;
+            this.config.debug = config.debug;
         };
+
+        /* @ngInject */        
+        this.initPouchDb = function($window, pouchDB) {
+            var db = pouchDB(this.config.collectionUrl, this.config.options);
+            if (this.config.debug) {
+                $window.PouchDB.debug.enable('*');
+            }            
+            console.log(db.adapter);
+            return db;
+        };
+
         var that = this;
 
         /* @ngInject */
-        this.$get = function ($timeout, pouchDB, $q, exception, logger) {
+        this.$get = function ($timeout, $window, pouchDB, $q, exception, logger) {
+            var db = that.db = that.initPouchDb($window, pouchDB);
             /**
              * @class item in the collection
              * @param item
@@ -46,9 +62,10 @@
             var pouchObject = {
                 collection: [],
                 indexes: {},
+                db: that.db
             };
-            var db = pouchObject.db = pouchDB(this.config.collectionUrl, this.config.options);
 
+            
             function getIndex(prevId) {
                 return prevId ? pouchObject.indexes[prevId] + 1 : 0;
             }
@@ -117,6 +134,18 @@
                 onChange: function(change) {
                     updateCollection(change);
                 }
+            });
+
+            db.allDocs({
+                include_docs: true,
+                attachments: true
+            }).then(function (result) {
+                // handle result
+                for(var change in result.rows) {
+                    updateCollection(result.rows[change].doc);
+                }
+            }).catch(function (err) {
+                console.log(err);
             });
 
             var $toggleOnline = function() {
