@@ -161,7 +161,7 @@
                     that.currentDb = that.remoteDb;
                     //TODO option retry: true,  implémneter le retry dans le onError
                     pouchObject.collection.sync = that.remoteDb.sync(
-                        that.config.collectionUrl, 
+                        that.config.collectionUrl + that.config.dbName, 
                         {live: true}, 
                         function(error) {
                             //callback nécessaire sinon l'erreur n'est pas remontée
@@ -189,14 +189,12 @@
                         );
                 } else {
                     //offline requested, we stops the synchronization
-                    pouchObject.collection.sync.cancel()
-                        .finally(function() {
-                            pouchObject.collection.sync = null;
-                            logger.info('Syncing halted by the user');
-                            var result = {data:info, code:'disconnectionSuccess', status:'stopped'};
-                            deferred.resolve(result);
-                            return result;
-                        })
+                    pouchObject.collection.sync.cancel();
+                    pouchObject.collection.sync = null;
+                    logger.info('Syncing halted by the user');
+                    var result = {data:info, code:'disconnectionSuccess', status:'stopped'};
+                    deferred.resolve(result);
+                    return result;
                     ;
                     
                 }
@@ -204,7 +202,7 @@
             };
 
             var $isOnline = function() {
-                return (pouchObject.collection.sync !== null) && (!pouchObject.collection.sync.cancelled);
+                return (pouchObject.collection.sync !== null);
             }
 
             var $add = function(item) {
