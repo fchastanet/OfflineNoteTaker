@@ -17,18 +17,21 @@ Ajouter les 2 lignes suivantes dans le fichier .bowerrc
     "https-proxy":"http://localhost:8888",
     "strict-ssl": false
 Configurer le proxy git
-    variable HOME à spécifier pour que git sache où stocker le fichier .gitconfig
+    variable HOME Ã  spÃ©cifier pour que git sache oÃ¹ stocker le fichier .gitconfig
     git config --global --add http.sslVerify false
     git config --global --add http.proxy http://localhost:8888
     git config --global --add https.proxy http://localhost:8888
 
 <h1>Installation</h1>
-Installation de cordova, ionic et gulp(watch css/js) de manière globale
-npm install -g cordova ionic
-npm install -g gulp
-npm install -g bower
+Installation de cordova, ionic et gulp(watch css/js) de mani?e globale
+npm install -g cordova ionic gulp bower brunch add-cors-to-couchdb
 
-installation de tous les modules nécessaires (utilise package.json)
+Activation de cors
+add-cors-to-couchdb http://localhost:5984 -u myusername -p mypassword
+
+RedÃ©marrer le service couchDb
+
+installation de tous les modules nÃ©ssaires (utilise package.json)
 npm install
 
 installation des libs js
@@ -36,3 +39,7 @@ bower install
 
 <h1>lancement</h1>
 ionic serve
+
+<h1>serveur pouchDB</h1>
+
+TODO angular-pouchdb fork

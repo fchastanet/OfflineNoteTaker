@@ -6,8 +6,10 @@
         appTitle: 'Angular Modular Demo',
         version: '1.0.0',
         pouchdb: {
-            collectionUrl: 'http://127.0.0.1:5984/nodes', // The pouchDB url where the collection lives
-            options: {},
+            dbName: 'nodes',
+            collectionUrl: 'http://localhost:5984/', // The pouchDB url where the collection lives
+            localDbOptions: {},
+            remoteDbOptions: {},
             debug: true
         }
     };

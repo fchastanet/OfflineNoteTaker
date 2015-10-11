@@ -13,34 +13,41 @@
     function pouchCollectionProvider() {
         /* jshint validthis:true */
         this.config = {
+            dbName: '',
             collectionUrl: undefined,
-            options: {},
+            localDbOptions: {},
+            remoteDbOptions: {},
             debug: false
         };
-        this.db = null;
-        this.pouchDB = null;
+        this.currentDb = null;
+        this.localDb = null;
+        this.remoteDb = null;
 
         this.configure = function (config) {
+            this.config.dbName = config.dbName;
             this.config.collectionUrl = config.collectionUrl;
-            this.config.options = config.options;
+            this.config.localDbOptions = config.localDbOptions;
+            this.config.remoteDbOptions = config.remoteDbOptions;
             this.config.debug = config.debug;
         };
 
         /* @ngInject */        
         this.initPouchDb = function($window, pouchDB) {
-            var db = pouchDB(this.config.collectionUrl, this.config.options);
+            this.currentDb = this.localDb = pouchDB(this.config.dbName, this.config.options);
+            this.remoteDb = pouchDB(this.config.collectionUrl+this.config.dbName, this.config.options);
+
             if (this.config.debug) {
                 $window.PouchDB.debug.enable('*');
             }            
-            console.log(db.adapter);
-            return db;
+            console.log('localDb.adapter :'+ this.localDb.adapter);
+            console.log('remoteDb.adapter :'+ this.remoteDb.adapter);
         };
 
         var that = this;
 
         /* @ngInject */
         this.$get = function ($timeout, $window, pouchDB, $q, exception, logger) {
-            var db = that.db = that.initPouchDb($window, pouchDB);
+            that.initPouchDb($window, pouchDB);
             /**
              * @class item in the collection
              * @param item
@@ -113,7 +120,7 @@
             function updateCollection(change)
             {
                 if (typeof change.deleted === 'undefined') {
-                    db.get(change._id).then(function(data) {
+                    that.currentDb.get(change._id).then(function(data) {
                         if (pouchObject.indexes[change._id] == undefined) { // CREATE / READ
                             addChild(pouchObject.collection.length, new PouchDbItem(data, pouchObject.collection.length)); // Add to end
                             updateIndexes(0);
@@ -129,14 +136,14 @@
                 }
             }
 
-            db.changes({
+            that.currentDb.changes({
                 live: true,
                 onChange: function(change) {
                     updateCollection(change);
                 }
             });
 
-            db.allDocs({
+            that.currentDb.allDocs({
                 include_docs: true,
                 attachments: true
             }).then(function (result) {
@@ -149,23 +156,62 @@
             });
 
             var $toggleOnline = function() {
-                pouchObject.collection.online = !pouchObject.collection.online;
-                if (pouchObject.collection.online) { // Read http://pouchdb.com/api.html#sync
-                    pouchObject.collection.sync = db.sync(this.config.collectionUrl, {live: true})
-                        .on('error', function(err) {
-                            logger.info('Syncing stopped');
-                            logger.error(err);
-                        });
+                var deferred = $q.defer();
+                if (pouchObject.collection.sync == null) { // Read http://pouchdb.com/api.html#sync
+                    that.currentDb = that.remoteDb;
+                    //TODO option retry: true,  implémneter le retry dans le onError
+                    pouchObject.collection.sync = that.remoteDb.sync(
+                        that.config.collectionUrl, 
+                        {live: true}, 
+                        function(error) {
+                            //callback nécessaire sinon l'erreur n'est pas remontée
+                        }
+                    );
+                    pouchObject.collection.sync
+                        .then(
+                            //success
+                            function(info) {
+                                var result = {data:info, code:'connectionSuccess', status:'running'};
+                                deferred.resolve(result);
+                                return result;
+                            },
+                            //error
+                            function(error) {
+                                logger.info('Syncing stopped due to an error');
+                                logger.error(error);
+                                deferred.reject({data:error, code:'error', status:'stopped'});
+                                pouchObject.collection.sync = null;
+                            },
+                            //notify
+                            function(notify) {
+
+                            }
+                        );
                 } else {
-                    pouchObject.collection.sync.cancel();
+                    //offline requested, we stops the synchronization
+                    pouchObject.collection.sync.cancel()
+                        .finally(function() {
+                            pouchObject.collection.sync = null;
+                            logger.info('Syncing halted by the user');
+                            var result = {data:info, code:'disconnectionSuccess', status:'stopped'};
+                            deferred.resolve(result);
+                            return result;
+                        })
+                    ;
+                    
                 }
+                return deferred;
             };
+
+            var $isOnline = function() {
+                return (pouchObject.collection.sync !== null) && (!pouchObject.collection.sync.cancelled);
+            }
 
             var $add = function(item) {
                 var deferred = $q.defer();
                 try
                 {
-                    db.post(angular.copy(item)).then(
+                    that.currentDb.post(angular.copy(item)).then(
                         function(res) {
                             item._rev = res.rev;
                             item._id = res.id;
@@ -181,7 +227,7 @@
             };
             var $remove = function(itemOrId) {
                 var item = angular.isString(itemOrId) ? pouchObject.collection[itemOrId] : itemOrId;
-                db.remove(item);
+                that.currentDb.remove(item);
             };
 
             var $update = function(itemOrId) {
@@ -192,9 +238,9 @@
                         copy[key] = value;
                     }
                 });
-                db.get(item._id).then(
+                that.currentDb.get(item._id).then(
                     function(res) {
-                        db.put(copy, res._rev);
+                        that.currentDb.put(copy, res._rev);
                     }
                 );
             };
@@ -203,6 +249,7 @@
              * PUBLIC METHODS
              */
             pouchObject.$toggleOnline = $toggleOnline;
+            pouchObject.$isOnline = $isOnline;
             pouchObject.$add = $add;
             pouchObject.$remove = $remove;
             pouchObject.$update = $update;
