@@ -46,17 +46,17 @@
             deferred.promise.then(
                 //success
                 function(data) {
-                    logger.success('success promise : ' . data);
+                    logger.success('success promise', data);
                     $scope.online = (pouchCollection.$isOnline());
                 },
                 //error
                 function(data) {
-                    logger.error('error promise : ' . data);
+                    logger.error('error promise', data);
                     $scope.online = (pouchCollection.$isOnline());
                 },
                 //notify
                 function(data) {
-                    logger.warning('notify promise : ' . data);
+                    logger.warning('notify promise', data);
                     $scope.online = (pouchCollection.$isOnline());
                 }
             );
