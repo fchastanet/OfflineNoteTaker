@@ -26,22 +26,39 @@
         function error(message, data, title) {
             //TODO attendre v3 qui n'a pas de dépendance avec jquery
             //toastr.error(message, title);
-            $log.error('Error: ' + message, data);
+            if (typeof data === "undefined") {
+                $log.error('Error: ' + message);
+            } else {
+                $log.error('Error: ' + message, data);
+            }
         }
 
         function info(message, data, title) {
             //toastr.info(message, title);
-            $log.info('Info: ' + message, data);
+            if (typeof data === "undefined") {
+                $log.info('Info: ' + message);    
+            } else {
+                $log.info('Info: ' + message, data);
+            }
+            
         }
 
         function success(message, data, title) {
             //toastr.success(message, title);
-            $log.info('Success: ' + message, data);
+            if (typeof data === "undefined") {
+                $log.info('Success: ' + message);
+            } else {
+                $log.info('Success: ' + message, data);
+            }
         }
 
         function warning(message, data, title) {
             //toastr.warning(message, title);
-            $log.warn('Warning: ' + message, data);
+            if (typeof data === "undefined") {
+                $log.warn('Warning: ' + message);
+            } else {
+                $log.warn('Warning: ' + message, data);
+            }
         }
     }
 }());
