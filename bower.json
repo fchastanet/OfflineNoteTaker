@@ -7,7 +7,7 @@
     ]
   },
   "devDependencies": {
-    "angular-pouchdb": "angular-pouchdb/bower-angular-pouchdb",
+    "angular-pouchdb": "fchastanet/bower-angular-pouchdb",
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
@@ -21,6 +21,6 @@
     "angular-elastic": "~2.5"
   },
   "resolutions": {
-    "angular": "1.4.6"
+    "angular": "1.4.7"
   }
 }

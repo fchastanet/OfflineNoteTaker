@@ -24,8 +24,8 @@ Configurer le proxy git
 
 <h1>Installation</h1>
 Installation de cordova, ionic et gulp(watch css/js) de mani?e globale
-npm install -g cordova ionic gulp bower brunch add-cors-to-couchdb
-
+npm install -g cordova ionic gulp bower brunch add-cors-to-couchdb uglify-js karma-cli
+ 
 Activation de cors
 add-cors-to-couchdb http://localhost:5984 -u myusername -p mypassword
 
@@ -36,6 +36,12 @@ npm install
 
 installation des libs js
 bower install
+
+compression lib js
+uglifyjs --compress --mangle -- file.js
+
+livraison du js compilé
+npm run-script build
 
 <h1>lancement</h1>
 ionic serve

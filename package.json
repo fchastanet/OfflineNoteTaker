@@ -2,6 +2,38 @@
   "name": "node",
   "version": "1.0.0",
   "description": "OfflineNoteTaker: An Ionic project",
+  "main": "dist/offlineNoteTaker.js",
+  "scripts": {
+    "annotate": "ng-annotate -a - > dist/offlineNoteTaker.js",
+    "prebuild": "rimraf dist && mkdirp dist",
+    "build": "npm --silent run wrap | npm run annotate",
+    "postbuild": "npm run uglify",
+    "coveralls": "coveralls < test/coverage/lcov/lcov.info",
+    "postinstall": "bower install",
+    "pretest": "eslint offlineNoteTaker.js karma.conf.js test/*.js",
+    "test": "karma start",
+    "watch": "karma start --autoWatch true --singleRun false",
+    "wrap": "catw prefix.js offlineNoteTaker.js suffix.js",
+    "uglify": "uglifyjs dist/offlineNoteTaker.js -mc > dist/offlineNoteTaker.min.js",
+    "presemantic-release": "npm run build",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fchastanet/OfflineNoteTaker.git"
+  },
+  "keywords": [
+    "angular",
+    "pouchdb",
+    "ionic",
+    "cordova"
+  ],
+  "author": "François Chastanet (http://francois.chastanet.free.fr/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fchastanet/OfflineNoteTaker/issues"
+  },
+  "homepage": "https://github.com/fchastanet/OfflineNoteTaker",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^1.3.3",
@@ -10,9 +42,28 @@
     "gulp-rename": "^1.2.0"
   },
   "devDependencies": {
-    "bower": "^1.3.3",
+    "bower": "1.5.3",
     "gulp-util": "^2.2.14",
-    "shelljs": "^0.3.0"
+    "shelljs": "^0.3.0",
+    "catw": "1.0.1",
+    "coveralls": "2.11.4",
+    "es5-shim": "4.1.13",
+    "eslint": "0.24.1",
+    "eslint-config-tlvince": "1.2.0",
+    "eslint-plugin-jasmine": "1.4.0",
+    "jasmine-core": "2.3.4",
+    "karma": "0.12.37",
+    "karma-cli": "0.0.4",
+    "karma-coverage": "0.2.7",
+    "karma-firefox-launcher": "0.1.6",
+    "karma-jasmine": "0.3.6",
+    "karma-phantomjs-launcher": "0.1.4",
+    "mkdirp": "0.5.1",
+    "ng-annotate": "0.14.1",
+    "rimraf": "2.4.3",
+    "semantic-release": "4.3.5",
+    "tlvince-blob-shim": "1.0.0",
+    "uglify-js": "2.4.24"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",
