@@ -44,8 +44,23 @@ livraison du js compilé
 npm run-script build
 
 <h1>lancement</h1>
-ionic serve
+ionic serve 
 
 <h1>serveur pouchDB</h1>
 
-TODO angular-pouchdb fork
+TODO 
+https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/
+
+
+<h1>différence entre service/factory/provider</h1>
+http://stackoverflow.com/a/28262966/3045926
+Factory: pratiquement comme un service, mais c'est un singleton : utilisé pour ne retourné qu'un objet
+	par ex: resolver, retourne une promesse ou la donnée directement
+Service: retourne toujours un objet avec les même méthodes et propriétés
+Provider: on décide de l'objet à retourner en fonction de paramètres
+
+une autre explication
+http://tutorials.jenkov.com/angularjs/dependency-injection.html
+
+maintenir les états dans les controleurs
+http://toddmotto.com/rethinking-angular-js-controllers/

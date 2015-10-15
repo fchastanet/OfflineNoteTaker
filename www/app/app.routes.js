@@ -51,6 +51,12 @@
                         controller: 'MenuController as menuController'   
                     }
                 },
+                resolve:{
+                    /* @ngInject */
+                    node: function(NodeViewService, $stateParams, $state) {
+                        return  NodeViewService.getNode($stateParams, $state);
+                    }
+                },
                 onEnter: function() {
                     console.log('enter nodeListMenu.nodeList');
                 }

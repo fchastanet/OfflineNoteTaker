@@ -25,7 +25,7 @@
     <ion-content overflow-scroll="true">
         <ion-list can-swipe="true" animation="my-repeat-animation" can-delete="true" show-delete="isDeletingItems" on-delete="deleteListItem(item, index)" delete-icon="ion-minus-circled" on-refresh-holding="refreshHolding()" on-refresh-opening="refreshOpening(ratio)" on-refresh="refreshItems()" refresh-complete="refreshComplete" option-buttons="optionButtons1">
             <ion-item item="node" ng-click="itemClick()" collection-repeat="node in nodeList" can-delete="false" can-reorder="false" can-swipe="false" ng-href="#" ng-class="{ active: node.isActive}">
-                <a ui-sref="node.view({ nodeId: node.id })">{{node.title}}</a>
+                <a ui-sref="node.view({ nodeId: node._id })">{{node.title}}</a>
             </ion-item>
         </ion-list>
     </ion-content>

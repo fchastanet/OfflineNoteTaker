@@ -27,7 +27,6 @@
             // code to run each time view is entered
             $scope.nodeList = pouchCollection.collection;    
         });
-        
 
         $scope.itemContextualMenu = [{
             text: 'Edit',

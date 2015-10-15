@@ -1,2 +1,2 @@
 cd ..
-ionic serve
+ionic serve --address localhost --nobrowser

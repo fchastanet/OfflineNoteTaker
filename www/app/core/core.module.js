@@ -16,6 +16,7 @@
          */
         'app.core.exception', 
         'app.core.logger',
+        'app.core.toastr',
         'app.core.db'
         
     ])        

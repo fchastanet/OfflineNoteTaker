@@ -1,5 +1,5 @@
 (function() {
     'use strict';
 
-    angular.module('app.node.view', []);
+    angular.module('app.node.view', ['ui.router']);
 })();

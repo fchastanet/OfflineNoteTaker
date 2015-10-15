@@ -1,0 +1,788 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"doc",
+				"docIndex"
+			],
+			[
+				"sea",
+				"searchNodes"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "www/app/node/view/view.js",
+			"settings":
+			{
+				"buffer_size": 2329,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 1609,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 32 files for \"routeProvider\"\n\nD:\\LyricsReader\\OfflineNoteTakerBitbucket\\www\\app\\node\\view\\view.js:\n   10  \n   11      /* @ngInject */\n   12:     function config($routeProvider) {\n   13:         $routeProvider\n   14              .when('/view', {\n   15                  resolve: {\n\n2 matches in 1 file\n",
+			"settings":
+			{
+				"buffer_size": 310,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"contents": "(function() {\n    'use strict';\n\n    angular\n        .module('app.node.list')\n        .controller('NodeListController', NodeListController)\n        .controller('NodeListMenuController', NodeListMenuController);\n\n    /* @ngInject */\n    function NodeListController($scope, pouchCollection, logger) {\n        console.log('enter NodeListController');\n        /*jshint validthis: true */\n        /*$scope.nodeList = [{\n            id: 1,\n            title: \"titre 1\"\n        }, {\n            id: 2,\n            title: \"titre 2\"\n        }, {\n            id: 3,\n            title: \"titre 3\"\n        }, {\n            id: 4,\n            title: \"titre 4\"\n        }, ];*/\n        $scope.$on('$ionicView.enter', function() {\n            // code to run each time view is entered\n            $scope.nodeList = pouchCollection.collection;    \n        });\n\n        $scope.itemContextualMenu = [{\n            text: 'Edit',\n            onTap: function(item, button) {\n                alert(button.text + ' Button: ' + item.title)\n            }\n        }, {\n            text: 'Delete',\n            type: 'button-balanced',\n            onTap: function(item, button) {\n                alert(button.text + ' Button: ' + item.title)\n            }\n        }];\n        $scope.toggleOnline = function() {\n            var deferred = pouchCollection.$toggleOnline()\n            deferred.promise.then(\n                //success\n                function(data) {\n                    logger.success('success promise', data);\n                    $scope.online = (pouchCollection.$isOnline());\n                },\n                //error\n                function(data) {\n                    logger.error('error promise', data);\n                    $scope.online = (pouchCollection.$isOnline());\n                },\n                //notify\n                function(data) {\n                    logger.warning('notify promise', data);\n                    $scope.online = (pouchCollection.$isOnline());\n                }\n            );\n        };\n\n        \n        $scope.deleteNode = function(item) {\n\n        };\n    }\n\n    /* @ngInject */\n    function NodeListMenuController($scope, logger) {\n        /*jshint validthis: true */\n\n    }\n})();\n",
+			"file": "www/app/node/list/list.js",
+			"file_size": 2291,
+			"file_write_time": 130893219584560546,
+			"settings":
+			{
+				"buffer_size": 2206,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/app/node/view/view.module.js",
+			"settings":
+			{
+				"buffer_size": 91,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/app/core/db/pouchCollection.provider.js",
+			"settings":
+			{
+				"buffer_size": 10520,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/app/core/db/nodeService.js",
+			"settings":
+			{
+				"buffer_size": 499,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "pac",
+		"selected_items":
+		[
+			[
+				"pac",
+				"Package Control: Disable Package"
+			],
+			[
+				"",
+				"Build: Cancel"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"pretti",
+				"HTMLPrettify"
+			],
+			[
+				"prett",
+				"HTMLPrettify"
+			],
+			[
+				"pretty",
+				"HTMLPrettify"
+			],
+			[
+				"pakc",
+				"Package Control: Install Package"
+			],
+			[
+				"pret",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"upg",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"html",
+				"HTMLBeautify"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 528.0
+	},
+	"console":
+	{
+		"height": 294.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib.request,os,sys; exec(\"if sys.version_info < (3,) or os.name != 'nt': raise OSError('This code is for Windows ST3 only!')\"); pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"  import urllib.request,os,sys; exec(\"if sys.version_info < (3,) or os.name != 'nt': raise OSError('This code is for Windows ST3 only!')\"); pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"import urllib.request,os,sys; exec(\"if sys.version_info < (3,) or os.name != 'nt': raise OSError('This code is for Windows ST3 only!')\"); pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/LyricsReader/OfflineNoteTakerBitbucket",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/db",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/logger",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastr",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/edit",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/list",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/view"
+	],
+	"file_history":
+	[
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/logger/logger.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastr/toastr.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastr/toastr.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/core.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/index.html",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/view/view.html",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/list/list.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/list/list.html",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/app.routes.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/offlineNoteTaker.sublime-project",
+		"/D/programs/Sublime Text Build 3059/Data/Packages/User/Preferences.sublime-settings",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/angular-pouchdb/angular-pouchdb.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/README.md",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/package.json",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/bower.json",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/angular-pouchdb/bower.json",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/angular-pouchdb/angular-pouchdb.min.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/node_modules/bower/lib/commands/list.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/db/db.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/db/pouchCollection.provider.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/app.run.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/toastr/toastr.js",
+		"/D/LyricsReader/ng-demos/modular/bower.json",
+		"/D/LyricsReader/OfflineNoteTaker.bitbucket/www/app/core/config.route.js",
+		"/D/LyricsReader/OfflineNoteTaker.bitbucket/www/app/core/config.js",
+		"/D/LyricsReader/OfflineNoteTaker.bitbucket/www/app/core/synchronization.service.js",
+		"/D/LyricsReader/OfflineNoteTaker.bitbucket/bin/dosbatch.sublime-build",
+		"/D/LyricsReader/OfflineNoteTaker.bitbucket/startServer.cmd",
+		"/D/LyricsReader/OfflineNoteTaker.bitbucket/.hgignore",
+		"/D/LyricsReader/OfflineNoteTaker/.gitignore",
+		"/D/LyricsReader/OfflineNoteTaker/www/.gitignore",
+		"/D/programs/Sublime Text Build 3059/Data/Packages/Package Control/Package Control.sublime-settings",
+		"/D/programs/Sublime Text Build 3059/Data/Packages/User/Package Control.sublime-settings",
+		"/D/LyricsReader/Node/www/js/old.app.js",
+		"/D/programs/Sublime Text Build 3059/Data/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
+		"/D/LyricsReader/Node/www/templates/header.html",
+		"/D/LyricsReader/Node/gulpfile.js",
+		"/D/LyricsReader/Lyrics/scss/ionic.app.scss",
+		"/D/programs/Sublime Text Build 3059/Data/Packages/Default/Preferences.sublime-settings",
+		"/D/DonnéesSouventSauvegardées/Programmation/LyricsReader/Lyrics/gulpfile.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/LyricsReader/Lyrics/bower.json",
+		"/D/DonnéesSouventSauvegardées/Programmation/LyricsReader/Lyrics/.gitignore",
+		"/D/DonnéesSouventSauvegardées/Programmation/LyricsReader/Lyrics/scss/ionic.app.scss",
+		"/D/DonnéesSouventSauvegardées/Programmation/LyricsReader/Lyrics/www/lib/ionic/css/ionic.css",
+		"/D/DonnéesSouventSauvegardées/Programmation/NoteTakerOffline/server.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NoteTakerOffline/live-server/live-server.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NoteTakerOffline/index.html",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/bootstrapvalidator-master/js/language/ja_JP.js",
+		"/D/programs/Sublime Text Build 3059/Data/Packages/User/SublimeCodeIntel.sublime-settings",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/microplugin.js-master/test/index.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/microplugin.js-master/src/microplugin.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap/js/bootstrap.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/microplugin.js-master/package.json",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/microplugin.js-master/bower.json",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap/config.json",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/sifter.js-master/sifter.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/microplugin.js-master/microplugin.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/selectize.js-master/js/standalone/selectize.min.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/bootstrapvalidator-master/js/language/sv_SE.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/bootstrapvalidator-master/js/language/sr_RS.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/bootstrapvalidator-master/js/language/sq_AL.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/selectize.js-master/js/standalone/selectize.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/selectize.js-master/js/selectize.min.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/Propositions/Proposition-Debogage-Bouchon-S0F0.docx",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/Propositions/shelves/Proposition-TraitementErreurAjax/bootstrap.src.css",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/Propositions/shelves/Proposition-TraitementErreurAjax/newcare.src.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/Propositions/shelves/uploadProgress/bootstrap.src.css",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/Propositions/shelves/uploadProgress/newcare.src.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/bootstrapvalidator-master/js/language/gr_EL.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/Propositions/AF2014.7z",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/selectize.js-master/css/selectize.css",
+		"/D/programs/Sublime Text Build 3059/Data/Packages/Pretty JSON/Pretty JSON.sublime-settings",
+		"/D/programs/Sublime Text Build 3059/Data/Packages/User/Pretty JSON.sublime-settings",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/sifter.js-master/bower.json",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap-components/bootstrapvalidator-master/js/language/cs_CZ.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/Propositions/shelves/manageXhrErrors/newcare.src.js",
+		"/C/EventGhost/eg/Classes/Panel.py",
+		"/D/DonnéesSouventSauvegardées/Programmation/EvenGhost/Webserver/bootstrap/fonts/glyphicons-halflings-regular.svg",
+		"/D/DonnéesSouventSauvegardées/Programmation/EvenGhost/Webserver/ratchet-2.0.2/js/popovers.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/bootstrap/css/bootstrap.css",
+		"/D/DonnéesSouventSauvegardées/Programmation/NewCare/index.html",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/contenuCrise/wp-content.zip",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/wp-content/plugins/wordpress-seo/frontend/class-breadcrumbs.php",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/wp-content/plugins/wordpress-seo/admin/pages/files.php",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/wp-content/themes/crise-majeure/functions.php",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/wp-content/themes/crise-majeure/footer.php",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/wp-content/plugins/wordpress-cdn-rewrite/functions.php",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/wp-includes/functions.php",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/wp-includes/js/tinymce/utils/form_utils.js",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/wp-content/themes/responsive/core/includes/functions.php",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/path.php",
+		"/D/DonnéesSouventSauvegardées/Programmation/new/wordpress-prod-2014-08-18/wp-includes/formatting.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"D:\\LyricsReader\\OfflineNoteTakerBitbucket\\www\\app",
+			"D:\\LyricsReader\\ng-demos",
+			"D:\\LyricsReader\\ng-demos\\modular",
+			"D:\\LyricsReader\\ng-demos\\modular\\src\\client",
+			"D:\\LyricsReader\\Node\\www",
+			"D:\\LyricsReader\\Node\\www\\js",
+			"D:\\LyricsReader\\Node\\www",
+			"D:\\DonnéesSouventSauvegardées\\Programmation\\new\\wordpress-prod-2014-08-18\\wp-includes",
+			"D:\\DonnéesSouventSauvegardées\\Programmation\\new\\wordpress-prod-2014-08-18\\wp-content\\plugins\\wordpress-seo",
+			"D:\\DonnéesSouventSauvegardées\\Programmation\\new\\wordpress-prod-2014-08-18\\wp-content\\plugins\\wordpress-seo\\admin",
+			"D:\\DonnéesSouventSauvegardées\\Programmation\\new\\wordpress-prod-2014-08-18\\wp-content\\plugins",
+			"D:\\DonnéesSouventSauvegardées\\Programmation\\new\\wordpress-prod-2014-08-18\\wp-content\\themes"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"routeProvider",
+			"getItem",
+			"data, ",
+			"\"",
+			", title",
+			"logger",
+			"addChild",
+			"updateCollection",
+			"- 1",
+			"-1",
+			"0",
+			"getIndex",
+			"prevId",
+			"getIndex",
+			"indexes",
+			"getItem",
+			"getIndex",
+			"angular-pouchdb",
+			"error",
+			"response",
+			"paused",
+			"stopHaltedByUser",
+			"eventEmitter",
+			"_dereq_",
+			"defer",
+			"paused",
+			"collectionUrl",
+			"edit",
+			"pouchObject",
+			"collection",
+			"data",
+			"create",
+			"toastr",
+			"www/",
+			"dataservice",
+			"Welcome",
+			"menuContent",
+			"ionicNavView",
+			"ionicNavView ",
+			"ui-view",
+			"uiView:",
+			"header",
+			"dash",
+			"watch",
+			"jshint",
+			"ChangeMasterVolumeBy",
+			"</a",
+			"<a",
+			"a",
+			"data-ignore=\"push\"",
+			"ButtonClick",
+			"forward",
+			"../../dist",
+			"button",
+			"inlineCheckbox",
+			"nqme",
+			"id",
+			"id=\"inlineCheckbox3\"",
+			"map",
+			"esc_textarea",
+			"$robots_file",
+			"get_home_path",
+			"robots.txt",
+			"yoast_breadcrumb",
+			"breadcrumb"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "www/app/node/view/view.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2329,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								398,
+								398
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1609,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1609,
+								1609
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 12.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 310,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										172,
+										185
+									],
+									[
+										205,
+										218
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"default_dir": "D:\\LyricsReader\\OfflineNoteTakerBitbucket",
+							"detect_indentation": false,
+							"incomplete_sync": null,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "www/app/node/list/list.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2206,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								840,
+								840
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "www/app/node/view/view.module.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 91,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								81,
+								81
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "www/app/core/db/pouchCollection.provider.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10520,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3458,
+								3461
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "www/app/core/db/nodeService.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 499,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								382,
+								382
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"open_with_edit": true,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 270.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "Packages/User/dosbatch.sublime-build",
+	"project": "offlineNoteTaker.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pouc",
+				"www\\app\\core\\db\\pouchCollection.provider.js"
+			],
+			[
+				"list",
+				"node_modules\\bower\\lib\\commands\\list.js"
+			],
+			[
+				"logger",
+				"www\\app\\core\\logger\\logger.js"
+			],
+			[
+				"angula-pou",
+				"www\\lib\\angular-pouchdb\\angular-pouchdb.js"
+			],
+			[
+				"pouchd",
+				"www\\lib\\pouchdb\\dist\\pouchdb.js"
+			],
+			[
+				"toastr",
+				"www\\lib\\toastr\\toastr.js"
+			],
+			[
+				"php",
+				"Propositions\\shelves\\Proposition-TraitementErreurAjax\\ajax.php"
+			],
+			[
+				"js",
+				"microplugin.js-master\\src\\microplugin.js"
+			],
+			[
+				"new",
+				"Propositions\\shelves\\manageXhrErrors\\newcare.src.js"
+			],
+			[
+				"css",
+				"bootstrap-components\\selectize.js-master\\css\\selectize.css"
+			],
+			[
+				"cs",
+				"bootstrap-components\\selectize.js-master\\css\\selectize.css"
+			],
+			[
+				"funct",
+				"wp-content\\themes\\crise-majeure\\functions.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 349.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
