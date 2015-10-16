@@ -12,6 +12,7 @@
             info    : info,
             success : success,
             warning : warning,
+            debug : debug,
         };
 
         return service;
@@ -47,6 +48,15 @@
                 $log.warn('Warning: ' + message);
             } else {
                 $log.warn('Warning: ' + message, data);
+            }
+        }
+
+        //TODO config to deactivate
+        function debug(message, data) {
+            if (typeof data === 'undefined') {
+                $log.debug('Debug: ' + message);
+            } else {
+                $log.debug('Debug: ' + message, data);
             }
         }
     }

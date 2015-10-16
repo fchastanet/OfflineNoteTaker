@@ -7,10 +7,10 @@
     ]
   },
   "devDependencies": {
-    "angular-pouchdb": "fchastanet/bower-angular-pouchdb",
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
+    "pouchdb": "~5.0.0",
     "angular": "1.4.3",
     "toastr": "~2.1.2",
     "moment": "~2.6.0",

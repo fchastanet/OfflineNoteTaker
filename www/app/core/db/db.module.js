@@ -1,5 +1,5 @@
 (function() {
     'use strict';
 
-    angular.module('app.core.db', ['pouchdb']);
+    angular.module('app.core.db', []);
 })();

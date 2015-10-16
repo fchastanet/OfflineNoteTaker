@@ -17,7 +17,7 @@
 
         //methods
         $scope.create = function(node) {
-            pouchCollection.$add(node).then(function(err, res) {
+            pouchCollection.add(node).then(function(err, res) {
                 if (err) {
                     logger.error(err);
                 } else {

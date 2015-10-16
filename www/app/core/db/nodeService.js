@@ -19,7 +19,7 @@
         
         //TODO cache
         function getNode(nodeId) {
-            return pouchCollection.$getItem(nodeId);
+            return pouchCollection.getItem(nodeId);
         }
     }
 

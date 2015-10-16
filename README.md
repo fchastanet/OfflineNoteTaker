@@ -54,8 +54,8 @@ https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/
 
 <h1>différence entre service/factory/provider</h1>
 http://stackoverflow.com/a/28262966/3045926
-Factory: pratiquement comme un service, mais c'est un singleton : utilisé pour ne retourné qu'un objet
-	par ex: resolver, retourne une promesse ou la donnée directement
+Factory: pratiquement comme un service, mais c'est un singleton : utilisé pour ne retourner qu'un objet
+	n'est instancié qu'une fois
 Service: retourne toujours un objet avec les même méthodes et propriétés
 Provider: on décide de l'objet à retourner en fonction de paramètres
 

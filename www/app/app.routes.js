@@ -33,6 +33,7 @@
                         controller: 'NodeSearchController as nodeSearchController'   
                     }
                 },
+                //TODO add the list resolver
                 onEnter: function() {
                     console.log('enter nodeListMenu.nodeList');
                 }
