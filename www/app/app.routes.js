@@ -57,7 +57,7 @@
                         return  NodeViewService.getNode($stateParams, $state);
                     }
                 },
-            };
+            }; 
 
             var nodeEditState = {
                 url: '/edit/:nodeId', //-> /node/list
