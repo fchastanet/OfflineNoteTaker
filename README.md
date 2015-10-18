@@ -68,3 +68,6 @@ http://toddmotto.com/rethinking-angular-js-controllers/
 
 ng-strict-di
 https://www.airpair.com/ionic-framework/posts/production-ready-apps-with-ionic-framework
+
+Releases
+V1 : list nodes, create and view a simple node(title + content) + beta synchronization with couchdb server
