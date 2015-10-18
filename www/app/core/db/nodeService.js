@@ -23,7 +23,7 @@
             return pouchCollection.getItem(nodeId);
         }
         function getNodeList() {
-            return pouchCollection.collection;    
+            return pouchCollection.getList();    
         }
     }
 
