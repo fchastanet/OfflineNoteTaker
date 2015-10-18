@@ -7,22 +7,8 @@
         .controller('NodeListMenuController', NodeListMenuController);
 
     /* @ngInject */
-    function NodeListController($scope, pouchCollection, logger) {
+    function NodeListController($scope, pouchCollection, logger, toastrWrapper) {
         console.log('enter NodeListController');
-        /*jshint validthis: true */
-        /*$scope.nodeList = [{
-            id: 1,
-            title: "titre 1"
-        }, {
-            id: 2,
-            title: "titre 2"
-        }, {
-            id: 3,
-            title: "titre 3"
-        }, {
-            id: 4,
-            title: "titre 4"
-        }, ];*/
         $scope.$on('$ionicView.enter', function() {
             // code to run each time view is entered
             $scope.nodeList = pouchCollection.collection;    
@@ -40,6 +26,9 @@
                 alert(button.text + ' Button: ' + item.title);
             }
         }];
+
+        var onlineState = false;
+        $scope.online = onlineState;
         $scope.toggleOnline = function() {
             var deferred = pouchCollection.toggleOnline();
             deferred.promise.then(
@@ -47,18 +36,33 @@
                 function(data) {
                     logger.success('success promise', data);
                     $scope.online = (pouchCollection.isOnline());
+                    changeOnlineState(toastrWrapper, $scope);
                 },
                 //error
                 function(data) {
                     logger.error('error promise', data);
-                    $scope.online = (pouchCollection.isOnline());
+                    var online = (pouchCollection.isOnline());
+                    changeOnlineState(toastrWrapper, $scope);
                 },
                 //notify
                 function(data) {
                     logger.warning('notify promise', data);
-                    $scope.online = (pouchCollection.isOnline());
+                    changeOnlineState(toastrWrapper, $scope);
                 }
             );
+
+            function changeOnlineState(toastrWrapper, $scope) {
+                var oldOnlineState = onlineState;
+                onlineState  = (pouchCollection.isOnline());
+                $scope.online = onlineState;
+                if (oldOnlineState !== onlineState) {
+                    if (onlineState) {
+                        toastrWrapper.info('aplication online');
+                    } else {
+                        toastrWrapper.info('aplication offline');
+                    }
+                }
+            }
         };
 
         

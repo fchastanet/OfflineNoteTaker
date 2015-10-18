@@ -15,8 +15,7 @@
          * Our reusable cross app code modules
          */
         'app.core.exception', 
-        'app.core.logger',
-        'app.core.toastr',
+        'app.core.toastrWrapper',
         'app.core.db'
         
     ])        

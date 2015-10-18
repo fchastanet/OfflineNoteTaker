@@ -15,7 +15,7 @@
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    <link href="lib/toastr/toastr.css" rel="stylesheet" />
+    <link href="lib/toastr/dist/toastr.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet">
 
     <!-- ionic/angularjs js -->
@@ -23,7 +23,7 @@
     
     <!-- dependant libs -->
     <script src="lib/angular-elastic/elastic.js"></script>
-    <script src="lib/toastr/toastr.js"></script>
+    <script src="lib/toastr/dist/toastr.js"></script>
     <script src="lib/moment/moment.js"></script>
     <script src="lib/pouchdb/dist/pouchdb.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
@@ -33,47 +33,47 @@
 
 
     <!-- your app's js -->
-    <script src="app/core/logger/logger.module.js"></script>
-    <script src="app/core/logger/logger.js"></script>
+    <script src="dist/app/core/logger/logger.module.js"></script>
+    <script src="dist/app/core/logger/logger.js"></script>
 
-    <script src="app/core/toastr/toastr.module.js"></script>
-    <script src="app/core/toastr/toastr.js"></script>
+    <script src="dist/app/core/toastrWrapper/toastrWrapper.module.js"></script>
+    <script src="dist/app/core/toastrWrapper/toastrWrapper.js"></script>
 
-    <script src="app/core/exception/exception.module.js"></script>
-    <script src="app/core/exception/exception-handler.provider.js"></script>
-    <script src="app/core/exception/exception.js"></script>
+    <script src="dist/app/core/exception/exception.module.js"></script>
+    <script src="dist/app/core/exception/exception-handler.provider.js"></script>
+    <script src="dist/app/core/exception/exception.js"></script>
 
-    <script src="app/core/db/db.module.js"></script>
-    <script src="app/core/db/nodeService.js"></script>
-    <script src="app/core/db/pouchCollection.provider.js"></script>
+    <script src="dist/app/core/db/db.module.js"></script>
+    <script src="dist/app/core/db/nodeService.js"></script>
+    <script src="dist/app/core/db/pouchCollection.provider.js"></script>
 
-    <script src="app/core/core.module.js"></script>
+    <script src="dist/app/core/core.module.js"></script>
 
-    <script src="app/layout/layout.module.js"></script>
-    <script src="app/layout/layout.js"></script>
+    <script src="dist/app/layout/layout.module.js"></script>
+    <script src="dist/app/layout/layout.js"></script>
 
-    <script src="app/node/edit/edit.module.js"></script>
-    <script src="app/node/edit/edit.js"></script>
+    <script src="dist/app/node/edit/edit.module.js"></script>
+    <script src="dist/app/node/edit/edit.js"></script>
 
-    <script src="app/node/view/view.module.js"></script>
-    <script src="app/node/view/view.js"></script>
+    <script src="dist/app/node/view/view.module.js"></script>
+    <script src="dist/app/node/view/view.js"></script>
     
-    <script src="app/node/list/list.module.js"></script>
-    <script src="app/node/list/list.js"></script>
+    <script src="dist/app/node/list/list.module.js"></script>
+    <script src="dist/app/node/list/list.js"></script>
 
-    <script src="app/node/search/search.module.js"></script>
-    <script src="app/node/search/search.js"></script>
+    <script src="dist/app/node/search/search.module.js"></script>
+    <script src="dist/app/node/search/search.js"></script>
 
-    <script src="app/app.module.js"></script>
-    <script src="app/app.routes.js"></script>
-    <script src="app/app.run.js"></script>
+    <script src="dist/app/app.module.js"></script>
+    <script src="dist/app/app.routes.js"></script>
+    <script src="dist/app/app.run.js"></script>
   </head>
   <body>
     <ion-nav-view></ion-nav-view>
     <script>
     try {
       angular.element(document).ready(function() {
-        angular.bootstrap(document.getElementsByTagName('html'), ['app']);
+        angular.bootstrap(document.getElementsByTagName('html'), ['app'], {strictDi:true});
         console.log('started');
       });
     } catch(err) {

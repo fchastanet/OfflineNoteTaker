@@ -10,10 +10,10 @@
     /**
      * Node resolver To be used as the resolver of the route node.view
      * @depends nodeService in order to retrieve the node specified in route param
-     * @depends toastr display messages on the screen
+     * @depends toastrWrapper display messages on the screen
      * @ngInject
      */
-    function NodeViewService(nodeService, toastr) {
+    function NodeViewService(nodeService, toastrWrapper) {
         
         /**
          * return to the node list state in case of error
@@ -39,7 +39,7 @@
             var nodeId = $stateParams.nodeId;
             if (!nodeId || nodeId === '') {
                 //TODO I18N
-                toastr.error('vous n\'avez pas spécifié d\'identifiant de document', 'erreur');
+                toastrWrapper.error('vous n\'avez pas spécifié d\'identifiant de document', 'erreur');
                 returnToList();
                 return;
             }
@@ -50,7 +50,7 @@
                 })
                 .catch(function(error) {
                     //TODO I18N
-                    toastr.error('error lors de l\'accès au document', 'erreur');
+                    toastrWrapper.error('error lors de l\'accès au document', 'erreur');
                     returnToList();
                 })
             ;
@@ -58,7 +58,7 @@
     }
 
     /* @ngInject */
-    function NodeViewController($scope, $rootScope, pouchCollection, logger, toastr, node) {
+    function NodeViewController($scope, $rootScope, pouchCollection, logger, toastrWrapper, node) {
         /*jshint validthis: true */
 
         //public scope methods

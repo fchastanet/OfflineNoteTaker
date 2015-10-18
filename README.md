@@ -53,6 +53,7 @@ https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/
 
 
 <h1>différence entre service/factory/provider</h1>
+doc officielle:https://docs.angularjs.org/guide/providers
 http://stackoverflow.com/a/28262966/3045926
 Factory: pratiquement comme un service, mais c'est un singleton : utilisé pour ne retourner qu'un objet
 	n'est instancié qu'une fois
@@ -64,3 +65,6 @@ http://tutorials.jenkov.com/angularjs/dependency-injection.html
 
 maintenir les états dans les controleurs
 http://toddmotto.com/rethinking-angular-js-controllers/
+
+ng-strict-di
+https://www.airpair.com/ionic-framework/posts/production-ready-apps-with-ionic-framework

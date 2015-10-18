@@ -1,5 +1,5 @@
 (function() {
     'use strict';
 
-    angular.module('app.node.view', ['ui.router']);
+    angular.module('app.node.view', ['ui.router', 'app.core.toastrWrapper']);
 })();

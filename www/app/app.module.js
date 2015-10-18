@@ -29,6 +29,7 @@
          */
         'ionic',
         'app.core',
+
         //'app.widgets',
 
         'monospaced.elastic',
@@ -48,9 +49,11 @@
     app.config(pouchCollectionConfig);
 
     /* @ngInject */
-    function toastrConfig(toastr) {
-        toastr.options.timeOut = 4000;
-        toastr.options.positionClass = 'toast-bottom-right';
+    function toastrConfig(toastrWrapperProvider) {
+        var options = {};
+        options.timeOut = 4000;
+        options.positionClass = 'toast-bottom-left';
+        toastrWrapperProvider.configure(options);
     }
 
     /* @ngInject */

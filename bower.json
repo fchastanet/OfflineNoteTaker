@@ -12,7 +12,7 @@
   "dependencies": {
     "pouchdb": "~5.0.0",
     "angular": "1.4.3",
-    "toastr": "~2.1.2",
+    "toastr": "CodeSeven/toastr#v3",
     "moment": "~2.6.0",
     "jquery": "~2.1.0",
     "angular-ui-router": "~0.2.13",

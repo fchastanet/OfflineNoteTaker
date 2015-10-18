@@ -7,7 +7,7 @@
         .module('app.core.exception')
         .provider('exceptionHandler', exceptionHandlerProvider)
         .config(config);
-
+ 
     /**
      * Must configure the exception handling
      * @return {[type]}
@@ -24,7 +24,7 @@
 
         this.$get = function() {
             return {config: this.config};
-        };
+        }; 
     }
 
     /**
@@ -32,8 +32,8 @@
      * Accessible via config.appErrorPrefix (via config value).
      * @param  {[type]} $provide
      * @return {[type]}
-     * @ngInject
      */
+    /* @ngInject */
     function config($provide) {
         $provide.decorator('$exceptionHandler', extendExceptionHandler);
     }

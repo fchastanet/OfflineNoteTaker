@@ -16,63 +16,111 @@
 	"buffers":
 	[
 		{
-			"file": "www/app/node/view/view.js",
+			"file": "www/app/node/view/view.module.js",
 			"settings":
 			{
-				"buffer_size": 2329,
+				"buffer_size": 117,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "README.md",
+			"file": "www/app/core/toastrWrapper/toastrWrapper.js",
 			"settings":
 			{
-				"buffer_size": 1609,
+				"buffer_size": 1126,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/index.html",
+			"settings":
+			{
+				"buffer_size": 2960,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "Searching 32 files for \"routeProvider\"\n\nD:\\LyricsReader\\OfflineNoteTakerBitbucket\\www\\app\\node\\view\\view.js:\n   10  \n   11      /* @ngInject */\n   12:     function config($routeProvider) {\n   13:         $routeProvider\n   14              .when('/view', {\n   15                  resolve: {\n\n2 matches in 1 file\n",
+			"file": "www/app/node/list/list.html",
 			"settings":
 			{
-				"buffer_size": 310,
+				"buffer_size": 1937,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/app/core/core.module.js",
+			"settings":
+			{
+				"buffer_size": 497,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/app/core/toastrWrapper/toastrWrapper.module.js",
+			"settings":
+			{
+				"buffer_size": 106,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/app/app.module.js",
+			"settings":
+			{
+				"buffer_size": 2160,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "# OfflineNoteTaker\nHTML5 AngularJs pouchDB Ionic\n\n<h1>Proxy pour NPM</h1>\navec fiddler\nnpm config set proxy http://localhost:8888\nnpm config set https-proxy http://localhost:8888\nnpm config set strict-ssl false\nnpm config set registry \"http://registry.npmjs.org/\"\n\nhttp://stackoverflow.com/questions/2989466/configuring-fiddler-to-use-company-networks-proxy\nhttp://stackoverflow.com/questions/7559648/is-there-a-way-to-make-npm-install-the-command-to-work-behind-proxy \n\n<h1>Proxy pour Bower</h1>\nAjouter les 2 lignes suivantes dans le fichier .bowerrc\n    \"proxy\":\"http://localhost:8888\",\n    \"https-proxy\":\"http://localhost:8888\",\n    \"strict-ssl\": false\nConfigurer le proxy git\n    variable HOME à spécifier pour que git sache où stocker le fichier .gitconfig\n    git config --global --add http.sslVerify false\n    git config --global --add http.proxy http://localhost:8888\n    git config --global --add https.proxy http://localhost:8888\n\n<h1>Installation</h1>\nInstallation de cordova, ionic et gulp(watch css/js) de mani?e globale\nnpm install -g cordova ionic gulp bower brunch add-cors-to-couchdb uglify-js karma-cli\n \nActivation de cors\nadd-cors-to-couchdb http://localhost:5984 -u myusername -p mypassword\n\nRedémarrer le service couchDb\n\ninstallation de tous les modules néssaires (utilise package.json)\nnpm install\n\ninstallation des libs js\nbower install\n\ncompression lib js\nuglifyjs --compress --mangle -- file.js\n\nlivraison du js compilé\nnpm run-script build\n\n<h1>lancement</h1>\nionic serve \n\n<h1>serveur pouchDB</h1>\n\nTODO \nhttps://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/\n\n\n<h1>différence entre service/factory/provider</h1>\nhttp://stackoverflow.com/a/28262966/3045926\nFactory: pratiquement comme un service, mais c'est un singleton : utilisé pour ne retourner qu'un objet\n	n'est instancié qu'une fois\nService: retourne toujours un objet avec les même méthodes et propriétés\nProvider: on décide de l'objet à retourner en fonction de paramètres\n\nune autre explication\nhttp://tutorials.jenkov.com/angularjs/dependency-injection.html\n\nmaintenir les états dans les controleurs\nhttp://toddmotto.com/rethinking-angular-js-controllers/\n\nng-strict-di\nhttps://www.airpair.com/ionic-framework/posts/production-ready-apps-with-ionic-framework\n",
+			"file": "README.md",
+			"file_size": 2183,
+			"file_write_time": 130895043632421875,
+			"settings":
+			{
+				"buffer_size": 2270,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 32 files for \"ng-app\"\n\n0 matches",
+			"settings":
+			{
+				"buffer_size": 42,
 				"line_ending": "Windows",
 				"name": "Find Results",
 				"scratch": true
 			}
 		},
 		{
-			"contents": "(function() {\n    'use strict';\n\n    angular\n        .module('app.node.list')\n        .controller('NodeListController', NodeListController)\n        .controller('NodeListMenuController', NodeListMenuController);\n\n    /* @ngInject */\n    function NodeListController($scope, pouchCollection, logger) {\n        console.log('enter NodeListController');\n        /*jshint validthis: true */\n        /*$scope.nodeList = [{\n            id: 1,\n            title: \"titre 1\"\n        }, {\n            id: 2,\n            title: \"titre 2\"\n        }, {\n            id: 3,\n            title: \"titre 3\"\n        }, {\n            id: 4,\n            title: \"titre 4\"\n        }, ];*/\n        $scope.$on('$ionicView.enter', function() {\n            // code to run each time view is entered\n            $scope.nodeList = pouchCollection.collection;    \n        });\n\n        $scope.itemContextualMenu = [{\n            text: 'Edit',\n            onTap: function(item, button) {\n                alert(button.text + ' Button: ' + item.title)\n            }\n        }, {\n            text: 'Delete',\n            type: 'button-balanced',\n            onTap: function(item, button) {\n                alert(button.text + ' Button: ' + item.title)\n            }\n        }];\n        $scope.toggleOnline = function() {\n            var deferred = pouchCollection.$toggleOnline()\n            deferred.promise.then(\n                //success\n                function(data) {\n                    logger.success('success promise', data);\n                    $scope.online = (pouchCollection.$isOnline());\n                },\n                //error\n                function(data) {\n                    logger.error('error promise', data);\n                    $scope.online = (pouchCollection.$isOnline());\n                },\n                //notify\n                function(data) {\n                    logger.warning('notify promise', data);\n                    $scope.online = (pouchCollection.$isOnline());\n                }\n            );\n        };\n\n        \n        $scope.deleteNode = function(item) {\n\n        };\n    }\n\n    /* @ngInject */\n    function NodeListMenuController($scope, logger) {\n        /*jshint validthis: true */\n\n    }\n})();\n",
+			"file": "www/app/app.run.js",
+			"settings":
+			{
+				"buffer_size": 627,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/app/node/view/view.js",
+			"settings":
+			{
+				"buffer_size": 2261,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "www/app/node/list/list.module.js",
+			"settings":
+			{
+				"buffer_size": 90,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "www/app/node/list/list.js",
-			"file_size": 2291,
-			"file_write_time": 130893219584560546,
 			"settings":
 			{
-				"buffer_size": 2206,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "www/app/node/view/view.module.js",
-			"settings":
-			{
-				"buffer_size": 91,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "www/app/core/db/pouchCollection.provider.js",
-			"settings":
-			{
-				"buffer_size": 10520,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "www/app/core/db/nodeService.js",
-			"settings":
-			{
-				"buffer_size": 499,
+				"buffer_size": 2862,
 				"line_ending": "Windows"
 			}
 		}
@@ -175,12 +223,14 @@
 	"expanded_folders":
 	[
 		"/D/LyricsReader/OfflineNoteTakerBitbucket",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/bin",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/db",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/exception",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/logger",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastr",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastrWrapper",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/layout",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/edit",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/list",
@@ -188,26 +238,40 @@
 	],
 	"file_history":
 	[
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/logger/logger.js",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastr/toastr.module.js",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastr/toastr.js",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/core.module.js",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/index.html",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/view/view.html",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/toastr/src/toastr.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/view/view.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/view/view.js",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/list/list.js",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/list/list.html",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/app.routes.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastrWrapper/toastrWrapper.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastrWrapper/toastrWrapper.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/app.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/list/list.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/ngtoastr/ngtoastr.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/db/pouchCollection.provider.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/.hgignore",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/offlineNoteTaker.sublime-project",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/app.routes.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/db/nodeService.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/edit/edit.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/logger/logger.js",
 		"/D/programs/Sublime Text Build 3059/Data/Packages/User/Preferences.sublime-settings",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/angular-pouchdb/angular-pouchdb.js",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/README.md",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/package.json",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/pouchdb/dist/pouchdb.js",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/bower.json",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/toastr/demo.html",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/README.md",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/bin/startServer.cmd",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/db/db.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/package.json",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastr/toastr.module.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/toastr/toastr.js",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/view/view.html",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/node/list/list.html",
+		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/angular-pouchdb/angular-pouchdb.js",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/angular-pouchdb/bower.json",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/angular-pouchdb/angular-pouchdb.min.js",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/node_modules/bower/lib/commands/list.js",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/db/db.module.js",
-		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/core/db/pouchCollection.provider.js",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/app/app.run.js",
 		"/D/LyricsReader/OfflineNoteTakerBitbucket/www/lib/toastr/toastr.js",
 		"/D/LyricsReader/ng-demos/modular/bower.json",
@@ -291,6 +355,13 @@
 		"where_history":
 		[
 			"D:\\LyricsReader\\OfflineNoteTakerBitbucket\\www\\app",
+			"D:\\LyricsReader\\OfflineNoteTakerBitbucket\\www",
+			"D:\\LyricsReader\\OfflineNoteTakerBitbucket\\www\\app",
+			"D:\\LyricsReader\\OfflineNoteTakerBitbucket\\www",
+			"D:\\LyricsReader\\OfflineNoteTakerBitbucket\\www\\app",
+			"D:\\LyricsReader\\OfflineNoteTakerBitbucket\\www\\app\\node",
+			"D:\\LyricsReader\\OfflineNoteTakerBitbucket\\www\\lib\\pouchdb",
+			"D:\\LyricsReader\\OfflineNoteTakerBitbucket\\www\\app",
 			"D:\\LyricsReader\\ng-demos",
 			"D:\\LyricsReader\\ng-demos\\modular",
 			"D:\\LyricsReader\\ng-demos\\modular\\src\\client",
@@ -309,6 +380,41 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ng-app",
+			"ngapp",
+			"ng-a",
+			"ng-app",
+			"bootstrap",
+			"ng-app",
+			"toast",
+			"loggger",
+			"app.core.",
+			"app.core.logger",
+			"toastrWrapper",
+			"$log",
+			"toastrWrapper",
+			"angular.module('app'",
+			"toastr",
+			"ngtoastr",
+			"toastr",
+			"ngtoastr",
+			"toastr",
+			"config",
+			"deferred",
+			"online",
+			"pouchCollection",
+			"that",
+			"completeReplication",
+			"replicate",
+			"removeLis",
+			"remove",
+			"cancel",
+			"this",
+			"currentDb",
+			"toggleOnline",
+			"duplicate",
+			"NodeViewFactory",
+			"resolver",
 			"routeProvider",
 			"getItem",
 			"data, ",
@@ -381,6 +487,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"db",
 			"'"
 		],
 		"reverse": false,
@@ -392,29 +499,59 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 9,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "www/app/node/view/view.js",
+					"file": "www/app/node/view/view.module.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2329,
+						"buffer_size": 117,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								398,
-								398
+								84,
+								93
 							]
 						],
 						"settings":
 						{
-							"auto_complete": false,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "www/app/core/toastrWrapper/toastrWrapper.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1126,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								105,
+								110
+							]
+						],
+						"settings":
+						{
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
@@ -426,24 +563,183 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "README.md",
+					"buffer": 2,
+					"file": "www/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1609,
+						"buffer_size": 2960,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1609,
-								1609
+								2960,
+								2960
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 588.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "www/app/node/list/list.html",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1937,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "www/app/core/core.module.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 497,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								449,
+								455
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "www/app/core/toastrWrapper/toastrWrapper.module.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 106,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								106,
+								106
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "www/app/app.module.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2160,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1102,
+								1102
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2270,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2270,
+								2270
 							]
 						],
 						"settings":
@@ -454,36 +750,20 @@
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 12.0,
+						"translation.y": 318.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 8,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 310,
+						"buffer_size": 42,
 						"regions":
 						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										172,
-										185
-									],
-									[
-										205,
-										218
-									]
-								],
-								"scope": ""
-							}
 						},
 						"selection":
 						[
@@ -509,24 +789,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "www/app/node/list/list.js",
+					"buffer": 9,
+					"file": "www/app/app.run.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2206,
+						"buffer_size": 627,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								840,
-								840
+								131,
+								144
 							]
 						],
 						"settings":
@@ -542,24 +822,57 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "www/app/node/view/view.module.js",
+					"buffer": 10,
+					"file": "www/app/node/view/view.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 91,
+						"buffer_size": 2261,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								81,
-								81
+								490,
+								503
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "www/app/node/list/list.module.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 90,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								80,
+								80
 							]
 						],
 						"settings":
@@ -573,64 +886,29 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "www/app/core/db/pouchCollection.provider.js",
+					"buffer": 12,
+					"file": "www/app/node/list/list.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10520,
+						"buffer_size": 2862,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3458,
-								3461
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 162.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "www/app/core/db/nodeService.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 499,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								382,
-								382
+								297,
+								310
 							]
 						],
 						"settings":
 						{
 							"incomplete_sync": null,
-							"open_with_edit": true,
 							"remote_loading": false,
 							"synced": false,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
@@ -641,7 +919,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -703,6 +981,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"rea",
+				"README.md"
+			],
+			[
+				"po",
+				"www\\app\\core\\db\\pouchCollection.provider.js"
+			],
 			[
 				"pouc",
 				"www\\app\\core\\db\\pouchCollection.provider.js"
