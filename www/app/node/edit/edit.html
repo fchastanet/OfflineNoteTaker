@@ -1,0 +1,29 @@
+<ion-view title="{{viewTitle}}">
+    <!-- nav bar override -->
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>  
+        <button class="button button-icon" ng-click="toggleOnline()">
+            <i class="icon" ng-class="{'ion-connection-bars' : online, 'ion-alert-circled' : !online}"></i>
+        </button>      
+    </ion-nav-buttons>
+
+    <ion-nav-back-button></ion-nav-back-button>
+
+    <!-- list content -->
+    <ion-content ng-class="stylemodeClass" class="scroll-content has-header" has-header="false" has-subheader="false" padding="true">
+        <form ng-submit="create(node)">
+            <label class="item item-input">
+                <span class="input-label" >Title</span>
+                <input type="text" placeholder="node title" ng-model="node.title">
+            </label>
+            <ion-nav-view name="additionalProperties"></ion-nav-view>
+            <label class="item item-input">
+                <textarea msd-elastic placeholder="markdown content" ng-model="node.content"></textarea>
+            </label>
+            <div class="padding">
+              <button type="submit" class="button button-block button-positive">Create Node</button>
+            </div>
+        </form>
+    </ion-content>
+    
+</ion-view>

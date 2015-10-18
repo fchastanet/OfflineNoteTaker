@@ -1,0 +1,6 @@
+//à copier dans Sublime Text\Data\Packages\User
+{
+	"cmd": ["D:\\LyricsReader\\OfflineNoteTaker.bitbucket\\startServer.cmd"],
+	"working_dir": "D:\\LyricsReader\\OfflineNoteTaker.bitbucket\\",
+	"selector": "source.dosbatch"
+}

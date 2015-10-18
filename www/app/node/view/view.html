@@ -1,0 +1,31 @@
+<ion-view has-header="false" has-subheader="false" title="{{node.title}}">
+    <!-- nav bar override -->
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+        <button class="button button-icon" ng-click="toggleOnline()">
+            <i class="icon" ng-class="{'ion-connection-bars' : online, 'ion-alert-circled' : !online}"></i>
+        </button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right" >
+        <button ui-sref="node.edit()" class="button button-icon icon ion-ios-plus-outline"></button>
+        <button class="button button-icon button-clear ion-ios-copy-outline" ng-click="nodeViewController.duplicate()" ></button>
+    </ion-nav-buttons>
+
+    <!-- content --> 
+    <ion-content ng-class="stylemodeClass" class="scroll-content has-header" has-header="false" has-subheader="false" padding="true">
+        <div class="book-text" contenteditable="true" ng-class="[textsizeClass]">
+        {{node.content}}
+        </div>
+    </ion-content>
+    <div class="bar bar-footer">
+        <div class="button-bar">
+            <button ng-click="zoomInText()" class="button icon ion-minus"></button>
+            <button ng-click="zoomOutText()" class="button icon ion-plus"></button>
+            <button ng-click="changeStyle()" class="button icon ion-contrast"></button>
+            <button ng-click="fullscreen()" class="button icon ion-arrow-expand"></button>
+            <button ng-click="chapters()" class="button icon ion-bookmark"></button>
+        </div>
+    </div>
+    
+</ion-view>
