@@ -11,9 +11,6 @@
                 abstract: true,
                 templateUrl: 'app/layout/layout.html',
                 controller: 'NodeListMenuController as nodeListMenuController',
-                onEnter: function() {
-                    console.log('enter nodeListMenu');
-                }
             };
 
             var nodeListState = {
@@ -33,9 +30,11 @@
                         controller: 'NodeSearchController as nodeSearchController'   
                     }
                 },
-                //TODO add the list resolver
-                onEnter: function() {
-                    console.log('enter nodeListMenu.nodeList');
+                resolve:{
+                    /* @ngInject */
+                    nodeList: function(NodeListResolver, $stateParams, $state) {
+                        return  NodeListResolver.getList($stateParams, $state);
+                    }
                 }
             };
 
@@ -58,9 +57,6 @@
                         return  NodeViewService.getNode($stateParams, $state);
                     }
                 },
-                onEnter: function() {
-                    console.log('enter nodeListMenu.nodeList');
-                }
             };
 
             var nodeEditState = {
@@ -76,9 +72,6 @@
                         controller: 'MenuController as menuController'   
                     }
                 },
-                onEnter: function() {
-                    console.log('enter nodeListMenu.nodeList');
-                }
             };
 
             /*var nodeSearchState = {

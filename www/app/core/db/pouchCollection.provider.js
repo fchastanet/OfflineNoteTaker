@@ -74,6 +74,25 @@
             pouchObject.remove = remove;
             pouchObject.update = update;
             pouchObject.getItem = getItem;
+            pouchObject.getList = getList;
+
+            function getList() {
+                var deferred = $q.defer();
+                that.db.allDocs({
+                    include_docs: true,
+                    attachments: false
+                }).then(function (result) {
+                    // handle result
+                    for(var change in result.rows) {
+                        updateCollection(result.rows[change].doc);
+                    }
+                    deferred.resolve(pouchObject.collection);  
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject({errorCode:'processError', error:err});
+                });
+                return deferred.promise;
+            }
 
             /**
              * TODO récupérer le document entier avec toutes les dépendances
@@ -276,18 +295,6 @@
                 onChange: function(change) {
                     updateCollection(change);
                 }
-            });
-
-            that.db.allDocs({
-                include_docs: true,
-                attachments: false
-            }).then(function (result) {
-                // handle result
-                for(var change in result.rows) {
-                    updateCollection(result.rows[change].doc);
-                }
-            }).catch(function (err) {
-                console.log(err);
             });
 
             return pouchObject;

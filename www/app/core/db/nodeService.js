@@ -13,13 +13,17 @@
     function nodeService(pouchCollection) {
         /* jshint validthis:true */
         var service = {
-            getNode: getNode
+            getNode: getNode,
+            getNodeList: getNodeList
         };
         return service;
         
         //TODO cache
         function getNode(nodeId) {
             return pouchCollection.getItem(nodeId);
+        }
+        function getNodeList() {
+            return pouchCollection.collection;    
         }
     }
 
