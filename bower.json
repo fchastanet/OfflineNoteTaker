@@ -10,7 +10,7 @@
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
-    "pouchdb": "~5.0.0",
+    "pouchdb": "fchastanet/pouchdb#5.0.1",
     "angular": "1.4.3",
     "toastr": "CodeSeven/toastr#v3",
     "moment": "~2.6.0",

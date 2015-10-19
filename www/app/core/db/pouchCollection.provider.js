@@ -133,37 +133,38 @@
                     pouchObject.sync = pouchObject.db.sync(remoteCouch, opts, syncError)
                         .on('change', function (info) {
                             // handle change
-                            logger.debug('Pouchdb sync change');
+                            logger.debug('Pouchdb sync change', info);
                             var result = {data:info, code:'change', status:'running'};
                             deferred.notify(result);
                         })
-                        .on('paused', function () {
+                        .on('paused', function (info) {
                             // replication paused (e.g. user went offline)
                             //TODO si retry true : dans le cas du paused mettre une icone signifiant une recherche de reseau en cours
-                            logger.debug('Pouchdb sync paused');
+                            logger.debug('Pouchdb sync paused', info);
                             var result = {data:null, code:'pause', status:'running'};
                             deferred.notify(result);
                         })
-                        .on('active', function () {
+                        .on('active', function (info) {
                             // replicate resumed (e.g. user went back online)
-                            logger.debug('Pouchdb sync resumed');
+                            logger.debug('Pouchdb sync resumed', info);
                             var result = {data:null, code:'active', status:'running'};
                             deferred.notify(result);
                         })
                         .on('denied', function (info) {
                             // a document failed to replicate, e.g. due to permissions
-                            logger.debug('Pouchdb sync document failed to replicate');
+                            logger.debug('Pouchdb sync document failed to replicate', info);
                             var result = {data:info, code:'denied', status:'running'};
                             deferred.notify(result);
                         })
                         .on('complete', function (info) {
                             // handle complete
-                            logger.debug('Pouchdb sync complete');
+                            logger.debug('Pouchdb sync complete', info);
                             var result = {data:info, code:'syncComplete', status:'paused'};
                             deferred.resolve(result);
                             return result;
                         })
                         .on('error', syncError)
+                        .on('requestError', syncError)
                     ;
 
                     function syncError(error) {
