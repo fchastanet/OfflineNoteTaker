@@ -1,7 +1,7 @@
-1. OfflineNoteTaker
+# OfflineNoteTaker
 HTML5 AngularJs pouchDB Ionic
 
-1. Releases
+# Releases
 **V1 :** list nodes, create and view a simple node(title + content) + beta synchronization with couchdb server
 
 # Configuration #
