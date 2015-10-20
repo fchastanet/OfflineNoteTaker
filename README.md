@@ -86,54 +86,34 @@ startServer.cmd
 ## ng-strict-di ##
 https://www.airpair.com/ionic-framework/posts/production-ready-apps-with-ionic-framework
 
-<h1>TODO</h1>
-<ul>
-<li>
-	<b>couchDb/pouchDb</b><br>
-	<ul>
-	<li>design document</li>
-	</ul>
-</li>
-<li>refactorization</li>
-<li>
-	<b>functionalities:</b>
-	<ul>
-		<li>edit node</li>
-		<li>delete node</li>
-		<li>ajout des champs supplémentaires + dépendances</li>
-		<li>search/pagination</li>
-		<li>rendu HTML (view)</li>
-		<li>localization : <a href="http://blog.trifork.com/2014/04/10/internationalization-with-angularjs/">http://blog.trifork.com/2014/04/10/internationalization-with-angularjs/</a></li>
-		<li>attachments</li>
-		<li>conflicts</li>
-		<li>concurrent modification => refactoring => each modification is an undo/redo change => the complete document is reconstructed from these changes => long polling</li>
-	</ul>
-</li>
-<li>
-	<b>before production</b><br>
-	<ul>
-	<li>
-		add other gulp tasks : 
-		<a href="https://www.airpair.com/ionic-framework/posts/production-ready-apps-with-ionic-framework">https://www.airpair.com/ionic-framework/posts/production-ready-apps-with-ionic-framework</a><br>
-		<a href="https://medium.com/@dickeyxxx/best-practices-for-building-angular-js-apps-266c1a4a6917">https://medium.com/@dickeyxxx/best-practices-for-building-angular-js-apps-266c1a4a6917</a>
-	</li>
-	<li>or use brunch:
-		<a href="https://github.com/brunch/brunch/tree/master/docs">https://github.com/brunch/brunch/tree/master/docs</a>
-	</li>
-	<li>générer un fichier manifest</li>
-	</ul>
-</li>
-<li>
-	<b>production</b>
-	mettre l'appli en ligne comme ce qui est fait avec cette appli <a href="http://silo.app.krur.com/">http://silo.app.krur.com/</a>
-</li>
+# TODO #
+## couchDb/pouchDb ##
+* design document
 
-<li>fchastanet:pouchdb pull request</li>
-<li>
-	<b>optimisations : </b>
-	<ul>
-	<li><a href="https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/">https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/
-	</a></li>
-	</ul>
-</li>
-</ul>
+## refactorization ##
+### functionalities: ###
+
+* edit node
+* delete node
+* ajout des champs supplémentaires + dépendances
+* search/pagination
+* rendu HTML (view)
+* localization : <a href="http://blog.trifork.com/2014/04/10/internationalization-with-angularjs/">http://blog.trifork.com/2014/04/10/internationalization-with-angularjs/</a>
+* attachments
+* conflicts
+* concurrent modification => refactoring => each modification is an undo/redo change => the complete document is reconstructed from these changes => long polling
+
+### before production ###
+* add other gulp tasks : 
+[https://www.airpair.com/ionic-framework/posts/production-ready-apps-with-ionic-framework](https://www.airpair.com/ionic-framework/posts/production-ready-apps-with-ionic-framework)
+[https://medium.com/@dickeyxxx/best-practices-for-building-angular-js-apps-266c1a4a6917](https://medium.com/@dickeyxxx/best-practices-for-building-angular-js-apps-266c1a4a6917)
+
+* or use brunch: [https://github.com/brunch/brunch/tree/master/docs](https://github.com/brunch/brunch/tree/master/docs)
+
+* générer un fichier manifest
+
+### production ###
+* mettre l'appli en ligne comme ce qui est fait avec cette appli : [http://silo.app.krur.com/](http://silo.app.krur.com/)
+* fchastanet:pouchdb pull request
+* optimisations : 
+* * [https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/](https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/)
