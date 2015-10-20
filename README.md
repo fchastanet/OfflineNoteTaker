@@ -116,4 +116,4 @@ https://www.airpair.com/ionic-framework/posts/production-ready-apps-with-ionic-f
 * mettre l'appli en ligne comme ce qui est fait avec cette appli : [http://silo.app.krur.com/](http://silo.app.krur.com/)
 * fchastanet:pouchdb pull request
 * optimisations : 
-  * [https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/](https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/)
+  ** [https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/](https://alexfeinberg.wordpress.com/2014/04/26/delay-load-anything-angular/)
