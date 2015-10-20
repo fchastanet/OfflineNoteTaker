@@ -19,7 +19,9 @@ npm config set registry "http://registry.npmjs.org/"
 ```
 
 [http://stackoverflow.com/questions/2989466/configuring-fiddler-to-use-company-networks-proxy](http://stackoverflow.com/questions/2989466/configuring-fiddler-to-use-company-networks-proxy)
+
 [http://stackoverflow.com/questions/7559648/is-there-a-way-to-make-npm-install-the-command-to-work-behind-proxy](http://stackoverflow.com/questions/7559648/is-there-a-way-to-make-npm-install-the-command-to-work-behind-proxy) 
+
 
 ## Proxy pour Bower ##
 Ajouter les 2 lignes suivantes dans le fichier .bowerrc
