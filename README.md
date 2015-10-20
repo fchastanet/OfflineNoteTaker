@@ -45,24 +45,42 @@ variable HOME à spécifier pour que git sache où stocker le fichier .gitconfig
 
 # Installation #
 ## Installation de cordova, ionic et gulp(watch css/js) de manière globale ##
+```
+#!bash
 npm install -g cordova ionic gulp bower brunch add-cors-to-couchdb uglify-js karma-cli
+```
  
 ## Activation de cors ##
+```
+#!bash
 add-cors-to-couchdb http://localhost:5984 -u myusername -p mypassword
+```
 
 ## Redémarrer le service couchDb ##
 
 ## installation de tous les modules néssaires (utilise package.json) ##
+```
+#!bash
 npm install
+```
 
 ## installation des libs js ##
+```
+#!bash
 bower install
+```
 
 ## compression lib js ##
+```
+#!bash
 uglifyjs --compress --mangle -- file.js
+```
 
 ## livraison du js compilé ##
+```
+#!bash
 npm run-script build
+```
 
 ## lancement ##
 
