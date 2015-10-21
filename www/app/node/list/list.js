@@ -39,7 +39,7 @@
     }
 
     /* @ngInject */
-    function NodeListController($scope, pouchCollection, logger, toastrWrapper, nodeList) {
+    function NodeListController($scope, $rootScope, pouchCollection, logger, toastrWrapper, nodeList, nodeService) {
         console.log('enter NodeListController');
         $scope.nodeList = nodeList;
         $scope.itemContextualMenu = [{
@@ -55,48 +55,37 @@
             }
         }];
 
-        var onlineState = false;
-        $scope.online = onlineState;
+        $scope.online = false;
         $scope.toggleOnline = function() {
-            var deferred = pouchCollection.toggleOnline();
-            deferred.promise.then(
-                //success
-                function(data) {
-                    logger.success('success promise', data);
-                    $scope.online = (pouchCollection.isOnline());
-                    changeOnlineState(toastrWrapper, $scope);
-                },
-                //error
-                function(data) {
-                    logger.error('error promise', data);
-                    var online = (pouchCollection.isOnline());
-                    changeOnlineState(toastrWrapper, $scope);
-                },
-                //notify
-                function(data) {
-                    logger.warning('notify promise', data);
-                    changeOnlineState(toastrWrapper, $scope);
-                }
-            );
-
-            function changeOnlineState(toastrWrapper, $scope) {
-                var oldOnlineState = onlineState;
-                onlineState  = (pouchCollection.isOnline());
-                $scope.online = onlineState;
-                if (oldOnlineState !== onlineState) {
-                    if (onlineState) {
-                        toastrWrapper.info('aplication online');
-                    } else {
-                        toastrWrapper.info('aplication offline');
-                    }
-                }
-            }
+            nodeService.toggleOnline();
         };
 
         
         $scope.deleteNode = function(item) {
 
         };
+
+        $rootScope.$on('sync.onlineState', function(event, data) {
+            $scope.online = data.state;
+            if (data.state) {
+                toastrWrapper.info('aplication online');
+            } else {
+                toastrWrapper.info('aplication offline');
+            }
+        });
+        $scope.syncStatus = {
+            'code': null,
+            'label': ''
+        };
+        $rootScope.$on('sync.syncState', function(event, data) {
+            $scope.syncStatus.code = data.state;
+            if (data.state === 'paused') {
+                $scope.syncStatus.label = 'synchronisation en pause';
+            } else {
+                $scope.syncStatus.label = 'synchronisation active';
+            }
+        });
+
     }
 
     /* @ngInject */
