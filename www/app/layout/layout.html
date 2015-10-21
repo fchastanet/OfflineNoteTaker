@@ -2,10 +2,18 @@
 
   <ion-side-menu-content>
     <ion-nav-bar class="bar-dark">
-    
-    <ion-nav-back-button></ion-nav-back-button>
-    </ion-nav-bar>
+    	<ion-nav-buttons side="left">
+	        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+	        <button class="button button-icon" ng-click="toggleOnline()">
+				<i class="icon" ng-class="{'ion-connection-bars' : online, 'ion-alert-circled' : !online}"></i>
+			</button>
+			<span class="syncStatus">{{syncStatus.label}}</span>
+	    </ion-nav-buttons>
 
+    	<ion-nav-back-button></ion-nav-back-button>
+
+    </ion-nav-bar>
+	
     <ion-nav-view name="content"></ion-nav-view>
   </ion-side-menu-content>
 
