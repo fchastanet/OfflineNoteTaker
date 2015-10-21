@@ -12,7 +12,13 @@
 }
 
 .bar .buttons-left span.syncStatus {
-	display: flex;
-	width:100px;
-	line-height: 15px;
+	height: 33px;
+	width:150px;
+	line-height: 33px;
+}
+
+@media screen and (max-width: 700px) {
+	.bar .buttons-left span.syncStatus {
+		display: none;
+	}
 }

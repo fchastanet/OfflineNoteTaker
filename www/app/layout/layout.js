@@ -22,11 +22,12 @@
                 toastrWrapper.info('aplication online');
             } else {
                 toastrWrapper.info('aplication offline');
+                $scope.syncStatus.label = 'hors ligne';
             }
         });
         $scope.syncStatus = {
             'code': null,
-            'label': ''
+            'label': 'hors ligne'
         };
         $rootScope.$on('sync.syncState', function(event, data) {
             $scope.syncStatus.code = data.state;
