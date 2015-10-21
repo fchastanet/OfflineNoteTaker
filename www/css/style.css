@@ -10,3 +10,9 @@
 	width: 100%;
 	display: flex;
 }
+
+.bar .buttons-left span.syncStatus {
+	display: flex;
+	width:100px;
+	line-height: 15px;
+}

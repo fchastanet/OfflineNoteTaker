@@ -10,7 +10,7 @@
                 url: '/node',
                 abstract: true,
                 templateUrl: 'app/layout/layout.html',
-                controller: 'NodeListMenuController as nodeListMenuController',
+                controller: 'LayoutController as layoutController',
             };
 
             var nodeListState = {
@@ -23,12 +23,12 @@
                     },
                     'leftMenuContent': {
                         templateUrl: 'app/layout/menu.html',
-                        controller: 'MenuController as menuController'   
+                        controller: 'LayoutMenuController as layoutMenuController'   
                     },
                     'rightMenuContent': {
                         templateUrl: 'app/node/search/filterOptions.html',
                         controller: 'NodeSearchController as nodeSearchController'   
-                    }
+                    },
                 },
                 resolve:{
                     /* @ngInject */
@@ -48,7 +48,7 @@
                     },
                     'leftMenuContent': {
                         templateUrl: 'app/layout/menu.html',
-                        controller: 'MenuController as menuController'   
+                        controller: 'LayoutMenuController as layoutMenuController'   
                     }
                 },
                 resolve:{
@@ -69,7 +69,7 @@
                     },
                     'leftMenuContent': {
                         templateUrl: 'app/layout/menu.html',
-                        controller: 'MenuController as menuController'   
+                        controller: 'LayoutMenuController as layoutMenuController'   
                     }
                 },
             };

@@ -39,7 +39,7 @@
     }
 
     /* @ngInject */
-    function NodeListController($scope, $rootScope, pouchCollection, logger, toastrWrapper, nodeList, nodeService) {
+    function NodeListController($scope, pouchCollection, logger, toastrWrapper, nodeList, nodeService) {
         console.log('enter NodeListController');
         $scope.nodeList = nodeList;
         $scope.itemContextualMenu = [{
@@ -54,37 +54,12 @@
                 alert(button.text + ' Button: ' + item.title);
             }
         }];
-
-        $scope.online = false;
-        $scope.toggleOnline = function() {
-            nodeService.toggleOnline();
-        };
-
         
         $scope.deleteNode = function(item) {
 
         };
 
-        $rootScope.$on('sync.onlineState', function(event, data) {
-            $scope.online = data.state;
-            if (data.state) {
-                toastrWrapper.info('aplication online');
-            } else {
-                toastrWrapper.info('aplication offline');
-            }
-        });
-        $scope.syncStatus = {
-            'code': null,
-            'label': ''
-        };
-        $rootScope.$on('sync.syncState', function(event, data) {
-            $scope.syncStatus.code = data.state;
-            if (data.state === 'paused') {
-                $scope.syncStatus.label = 'synchronisation en pause';
-            } else {
-                $scope.syncStatus.label = 'synchronisation active';
-            }
-        });
+        
 
     }
 
