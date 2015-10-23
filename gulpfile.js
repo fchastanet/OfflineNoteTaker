@@ -7,14 +7,26 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var replace = require('gulp-replace');
+var buffer = require('vinyl-buffer');
+var exec = require('child_process').exec;
 
 var paths = {
   sass: ['./scss/**/*.scss'],
   javascript: ['./www/app/**/module.js', './www/app/**/*.js'],
-  javascripDest:'./www/dist/app'
+  javascripDest:'./www/dist/app',
+  designDocument: ['./couchdbDesignDocuments/*.js'],
+  designDocumentDest: './dist/couchdbDesignDocuments'
 };
 
-gulp.task('default', ['javascript', 'sass']);
+gulp.task('default', ['javascript', 'designDocument', 'sass']);
+
+gulp.task('watch', function() {
+  gulp.watch(paths.designDocument, ['designDocument'])
+  //gulp.watch(paths.javascript, ['javascript']);
+  //gulp.watch(paths.sass, ['sass']);
+  
+});
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -30,16 +42,31 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.javascript, ['javascript']);
-});
-
 gulp.task('javascript', function () {
   gulp.src(paths.javascript)
     .pipe(ngAnnotate())
     //.pipe(uglify())
     .pipe(gulp.dest(paths.javascripDest));
+});
+
+gulp.task('designDocument', function () {
+  gulp.src(paths.designDocument)
+    .pipe(buffer()) //convertit le stream en un buffer (afin de lire tout le fichier d'un seul bloc)
+    .pipe(replace(/'/g, '"'))
+    //remplacement /*<stringify>*/ (.*) /*</stringify>*/ par "$1 avec des quotes à la places des doubles"
+    .pipe(replace(/\/\*<stringify>\*\/[ \t\r\n]*([\s\S]*?)[ \t\r\n]*\/\*<\/stringify>\*\//gmi, function(match, match1) {
+      var content = match1; //todo tester minifyjs sur content
+      content = content.replace(/\"/g, "'");
+      content = content.replace(/\\'/g, "&quote;");
+      content = content.replace(/\/\/.*$/gm, ""); //suppression des commentaires du style //
+      content = content.replace(/^[ ]*([\s\S]*?)[ ]*$/gm, "$1"); //supression des espaces de début et fin de ligne
+      content = content.replace(/[\n\r]*/g, ""); //suppression des sauts de ligne
+      content = '\"' + content + '\"';
+      return  content;
+    }))
+    //suppression des commentaires
+    .pipe(replace(/\/\*([\s\S]*?)\*\//g, '')) 
+    .pipe(gulp.dest(paths.designDocumentDest));
 });
 
 

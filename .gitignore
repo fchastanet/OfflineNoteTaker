@@ -1,0 +1,6 @@
+node_modules/
+plugins/
+platforms/
+www/dist/
+www/lib/
+dist/

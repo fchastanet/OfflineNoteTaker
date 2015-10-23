@@ -50,6 +50,7 @@
     "eslint-config-tlvince": "1.2.0",
     "eslint-plugin-jasmine": "1.4.0",
     "gulp-ng-annotate": "^1.1.0",
+    "gulp-replace": "^0.5.4",
     "gulp-util": "^2.2.14",
     "jasmine-core": "2.3.4",
     "karma": "0.12.37",
@@ -64,7 +65,8 @@
     "semantic-release": "4.3.5",
     "shelljs": "^0.3.0",
     "tlvince-blob-shim": "1.0.0",
-    "uglify-js": "2.4.24"
+    "uglify-js": "2.4.24",
+    "vinyl-buffer": "^1.0.0"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",
