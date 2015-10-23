@@ -56,7 +56,8 @@ npm install -g cordova ionic gulp bower brunch add-cors-to-couchdb uglify-js kar
 add-cors-to-couchdb http://localhost:5984 -u myusername -p mypassword
 ```
 
-## Redémarrer le service couchDb ##
+## Installation du service couchDb ##
+attention l'installer dans un répertoire sans espace sur windows
 
 ## installation de tous les modules néssaires (utilise package.json) ##
 ```
