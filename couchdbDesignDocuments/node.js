@@ -4,7 +4,7 @@
  */
 {
     '_id': '_design/node',
-    'validate_doc_update': 
+    'validate_doc_update':  
         /*<stringify>*/
         function(newDoc, oldDoc, userCtx, secObj) {
             function require(field , message) {
@@ -16,8 +16,8 @@
             require('type');   
             require('creationDate'); 
             require('title');    
-            require('author');  
-            require('contentFormat'); //markdown, ...
+            require('author');   
+            require('contentFormat');  //markdown, ...
             require('content'); 
             require('fields'); 
             
@@ -39,7 +39,7 @@
                 if (oldDoc && toJSON(oldDoc[field]) != toJSON(newDoc[field]))
                   throw({forbidden : 'Field can\'t be changed: ' + field});
             }
-            unchanged('creationDate');
+            unchanged('creationDate'); 
             unchanged('_id');
         }/*</stringify>*/
     ,'views': {
