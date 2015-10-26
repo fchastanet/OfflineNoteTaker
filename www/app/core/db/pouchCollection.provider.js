@@ -150,6 +150,7 @@
                             var result = {data:null, code:'active', status:'running'};
                             deferred.notify(result);
                         })
+                        
                         .on('denied', function (info) {
                             // a document failed to replicate, e.g. due to permissions
                             logger.debug('Pouchdb sync document failed to replicate', info);
@@ -167,10 +168,10 @@
                         .on('requestError', syncError)
                     ;
 
-                    function syncError(error) {
+                    function syncError(error, result) {
                         // handle error
                         logger.error('error while syncing ...', error);
-                        var result = {data:error, code:'error', status:'running'};
+                        var result = {data:(error)?error:result, code:'error', status:'running'};
                         deferred.reject(result);
                         cancelSync(deferred); //TODO forcément déconnecté ?
                     }

@@ -92,8 +92,8 @@ gulp.task('watch', function(done) {
         return done();
     })  
   ;
-  //gulp.watch(paths.javascript, ['javascript']);
-  //gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.javascript, ['javascript']);
+  gulp.watch(paths.sass, ['sass']);
   
 });
 
