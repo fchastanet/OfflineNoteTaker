@@ -11,8 +11,11 @@ var replace = require('gulp-replace');
 var buffer = require('vinyl-buffer');
 var exec = require('child_process').exec;
 var path = require('path');
+var mergeStream = require('merge-stream');
+var manifest = require('gulp-manifest');
 
 var paths = {
+  app: './www/',
   sass: ['scss/**/*.scss'],
   javascript: ['www/app/**/module.js', 'www/app/**/*.js'],
   javascripDest:'www/dist/app',
@@ -22,7 +25,7 @@ var paths = {
 };
 
 
-gulp.task('default', ['javascript', 'designDocument', 'sass']);
+gulp.task('default', ['manifest', 'javascript', 'designDocument', 'sass']);
 
 gulp.task('watch', function(done) {
   gulp.watch(paths.designDocument)
@@ -56,7 +59,7 @@ gulp.task('watch', function(done) {
         /**
          * mise à jour du fichier vers couchdb (la commande curl doit être installée)
          */
-        cmd = 'curl http://127.0.0.1:5984/test/_design/node';
+        cmd = 'curl http://127.0.0.1:5984/nodes/_design/node';
         console.log('check if document is here : '+cmd);
         exec(cmd, function (err, stdout, stderr) {
           if (err) {
@@ -66,7 +69,7 @@ gulp.task('watch', function(done) {
           console.log(stdout);
           console.dir(result);
           if (typeof result._rev == "string") {
-            cmd = 'curl -X DELETE admin:admin@127.0.0.1:5984/test/_design/node?rev='+result._rev;
+            cmd = 'curl -X DELETE admin:admin@127.0.0.1:5984/nodes/_design/node?rev='+result._rev;
             console.log('existing document, remove it : '+cmd);
             exec(cmd, function (err, stdout, stderr) {
               console.log('stdout '+stdout+' stderr :'+stderr);
@@ -81,7 +84,7 @@ gulp.task('watch', function(done) {
 
           function putDocument() {
             var fileName = paths.designDocumentDest + '/'+ relativePath;
-            cmd = 'curl -H "Content-Type: application/json" -X PUT admin:admin@127.0.0.1:5984/test/_design/node --data-binary "@'+fileName+'"';
+            cmd = 'curl -H "Content-Type: application/json" -X PUT admin:admin@127.0.0.1:5984/nodes/_design/node --data-binary "@'+fileName+'"';
             console.log('add the new document : '+cmd);
             exec(cmd, function (err, stdout, stderr) {
               console.log('stdout '+stdout+' stderr :'+stderr);
@@ -117,6 +120,29 @@ gulp.task('javascript', function () {
     //.pipe(uglify())
     .pipe(gulp.dest(paths.javascripDest));
 });
+
+gulp.task('manifest', function(){
+  mergeStream(
+    gulp.src([
+      path.join(paths.app + '*.html'),
+      path.join(paths.app + 'img/**/*.{png,svg,jpg}'),
+      path.join(paths.app + 'app/**/*.js'),
+      path.join(paths.app + 'lib/**/*.js'),
+      path.join(paths.app + 'lib/**/*.css'),
+      path.join(paths.app + 'css/**/*.css')
+    ], {
+      base: paths.app
+    })
+  )
+  .pipe(manifest({
+    hash: true,
+    preferOnline: false,
+    network: ['*'],
+    filename: 'appcache.manifest'
+  }))
+  .pipe(gulp.dest(paths.app));
+});
+
 
 
 gulp.task('install', ['git-check'], function() {

@@ -4,3 +4,4 @@ platforms/
 www/dist/
 www/lib/
 dist/
+www/appcache.manifest

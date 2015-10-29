@@ -7,7 +7,7 @@
         version: '1.0.0',
         pouchdb: {
             dbName: 'nodes',
-            collectionUrl: 'http://localhost:5984/', // The pouchDB url where the collection lives
+            collectionUrl: 'http://admin:admin@localhost:5984/', // The pouchDB url where the collection lives
             localDbOptions: {},
             remoteDbOptions: {},
             debug: true
