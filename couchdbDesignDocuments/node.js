@@ -33,17 +33,17 @@
             requireType('title', 'string'); //todo not empty, ensure unique
             requireType('author', 'string'); //todo not empty 
             requireType('contentFormat', 'string');
-            requireType('content', 'string');
+            requireType('content', 'string'); 
             requireType('fields', 'object');
             //todo validate each field 
 
             function unchanged(field, message) { 
                 message = message || 'Field can\'t be changed: ' + field;
                 if (oldDoc && toJSON(oldDoc[field]) != toJSON(newDoc[field])) {
-                  throw({forbidden : message});
+                  throw({forbidden : message}); 
                 }
-            }
-            unchanged('creationDate'); 
+            } 
+            unchanged('creationDate');  
             unchanged('_id');
 
             function enumField(field, valueList, message) {
@@ -53,7 +53,7 @@
                 }
             }
             enumField('type', ['lyrics']);
-            enumField('contentFormat', ['makdown', 'html', 'plainText']);
+            enumField('contentFormat', ['markdown', 'html', 'plainText']);
 
         }/*</stringify>*/
     ,'views': {
