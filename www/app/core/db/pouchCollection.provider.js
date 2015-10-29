@@ -117,6 +117,8 @@
 
             function cancelSync(deferred) {
                 if (isOnline()) {
+                    pouchObject.sync.removeAll('push');
+                    pouchObject.sync.removeAll('pull');
                     pouchObject.sync.cancel();
                     pouchObject.sync = null;
                     var result = {data:null, code:'disconnectionSuccess', status:'stopped'};
