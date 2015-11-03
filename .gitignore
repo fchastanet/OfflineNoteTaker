@@ -5,3 +5,4 @@ www/dist/
 www/lib/
 dist/
 www/appcache.manifest
+old_node_modules/

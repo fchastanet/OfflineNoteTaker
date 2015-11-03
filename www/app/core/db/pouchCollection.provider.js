@@ -14,31 +14,44 @@
         /* jshint validthis:true */
         this.config = {
             dbName: '',
-            collectionUrl: undefined,
-            localDbOptions: {},
-            remoteDbOptions: {},
+            localDb: {
+                options: {
+                }
+            },
+            remoteDb: {
+                collectionUrl: undefined
+                options: {
+                    skipSetup: true
+                },
+                user {
+                    name: 'fchastanet', //TODO
+                    password: 'fchastanet'
+                }
+            },
+            sync: {
+                options: {
+                    live: true, 
+                    retry: true
+                }
+            }
             debug: false
         };
-        this.db = null;
+        this.localDb = null;
 
         this.configure = function (config) {
-            this.config.dbName = config.dbName;
-            this.config.collectionUrl = config.collectionUrl;
-            this.config.localDbOptions = config.localDbOptions;
-            this.config.remoteDbOptions = config.remoteDbOptions;
-            this.config.debug = config.debug;
+            angular.extend(this.config, config);
         };
       
         var that = this;
 
         /* @ngInject */
         this.$get = function ($timeout, $window, $q, exception, logger) {
-            that.db = new $window.PouchDB(that.config.dbName, that.config.options);
+            that.localDb = new $window.PouchDB(that.config.dbName, that.config.localDb.options);
 
             if (that.config.debug) {
                 $window.PouchDB.debug.enable('*');
             }            
-            console.log('db.adapter :'+ that.db.adapter);
+            console.log('db.adapter :'+ that.localDb.adapter);
 
             /**
              * @class item in the collection
@@ -61,7 +74,7 @@
             var pouchObject = {
                 collection: [],
                 indexes: {},
-                db: that.db,
+                localDb: that.localDb,
                 sync: null
             };
 
@@ -78,7 +91,7 @@
 
             function getList() {
                 var deferred = $q.defer();
-                that.db.allDocs({
+                that.localDb.allDocs({
                     include_docs: true,
                     attachments: false
                 }).then(function (result) {
@@ -106,7 +119,7 @@
                     return deferred;
                 }
 
-                that.db.get(itemId, {include_docs: true,attachments: true}).then(function (doc) {
+                that.localDb.get(itemId, {include_docs: true,attachments: true}).then(function (doc) {
                     deferred.resolve(doc);  
                 }).catch(function (err) {
                   deferred.reject({errorCode:'processError', error:err});
@@ -130,53 +143,67 @@
                 var deferred = $q.defer();
                 if (pouchObject.sync == null) { // Read http://pouchdb.com/api.html#sync
                     //online requested
-                    var remoteCouch = that.config.collectionUrl+that.config.dbName;
-                    var opts = {live: true, retry: true};
-                    pouchObject.sync = pouchObject.db.sync(remoteCouch, opts, syncError)
-                        .on('change', function (info) {
-                            // handle change
-                            logger.debug('Pouchdb sync change', info);
-                            var result = {data:info, code:'change', status:'running'};
-                            deferred.notify(result);
-                        })
-                        .on('paused', function (info) {
-                            // replication paused (e.g. user went offline)
-                            //TODO si retry true : dans le cas du paused mettre une icone signifiant une recherche de reseau en cours
-                            logger.debug('Pouchdb sync paused', info);
-                            var result = {data:null, code:'pause', status:'running'};
-                            deferred.notify(result);
-                        })
-                        .on('active', function (info) {
-                            // replicate resumed (e.g. user went back online)
-                            logger.debug('Pouchdb sync resumed', info);
-                            var result = {data:null, code:'active', status:'running'};
-                            deferred.notify(result);
-                        })
-                        
-                        .on('denied', function (info) {
-                            // a document failed to replicate, e.g. due to permissions
-                            logger.debug('Pouchdb sync document failed to replicate', info);
-                            var result = {data:info, code:'denied', status:'running'};
-                            deferred.notify(result);
-                        })
-                        .on('complete', function (info) {
-                            // handle complete
-                            logger.debug('Pouchdb sync complete', info);
-                            var result = {data:info, code:'syncComplete', status:'paused'};
-                            deferred.resolve(result);
-                            return result;
-                        })
-                        .on('error', syncError)
-                        .on('requestError', syncError)
-                    ;
+                    var remoteCouch = that.config.remoteDb.collectionUrl+that.config.dbName;
+                    var remoteDb = new $window.PouchDB(remoteCouch, that.config.remoteDb.options);
+                    var ajaxOpts = {
+                      ajax: {
+                        headers: {
+                          Authorization: 'Basic ' + $window.btoa(that.config.remoteDb.user.name + ':' + that.config.remoteDb.user.password)
+                        }
+                      }
+                    };
 
-                    function syncError(error, result) {
-                        // handle error
-                        logger.error('error while syncing ...', error);
-                        var result = {data:(error)?error:result, code:'error', status:'running'};
-                        deferred.reject(result);
-                        cancelSync(deferred); //TODO forcément déconnecté ?
-                    }
+                    remoteDb.login(that.config.user.name, that.config.user.password, ajaxOpts).then(function() {
+                        pouchObject.sync = pouchObject.localDb.sync(remoteDb, that.config.sync.options, syncError)
+                            .on('change', function (info) {
+                                // handle change
+                                logger.debug('Pouchdb sync change', info);
+                                var result = {data:info, code:'change', status:'running'};
+                                deferred.notify(result);
+                            })
+                            .on('paused', function (info) {
+                                // replication paused (e.g. user went offline)
+                                //TODO si retry true : dans le cas du paused mettre une icone signifiant une recherche de reseau en cours
+                                logger.debug('Pouchdb sync paused', info);
+                                var result = {data:null, code:'pause', status:'running'};
+                                deferred.notify(result);
+                            })
+                            .on('active', function (info) {
+                                // replicate resumed (e.g. user went back online)
+                                logger.debug('Pouchdb sync resumed', info);
+                                var result = {data:null, code:'active', status:'running'};
+                                deferred.notify(result);
+                            })
+                            
+                            .on('denied', function (info) {
+                                // a document failed to replicate, e.g. due to permissions
+                                logger.debug('Pouchdb sync document failed to replicate', info);
+                                var result = {data:info, code:'denied', status:'running'};
+                                deferred.notify(result);
+                            })
+                            .on('complete', function (info) {
+                                // handle complete
+                                logger.debug('Pouchdb sync complete', info);
+                                var result = {data:info, code:'syncComplete', status:'paused'};
+                                deferred.resolve(result);
+                                return result;
+                            })
+                            .on('error', syncError)
+                            .on('requestError', syncError)
+                        ;
+
+                        function syncError(error, result) {
+                            // handle error
+                            logger.error('error while syncing ...', error);
+                            var result = {data:(error)?error:result, code:'error', status:'running'};
+                            deferred.reject(result);
+                            cancelSync(deferred); //TODO forcément déconnecté ?
+                        }                
+                    }).catch(function(error) {
+                      logger.info('Failed to connect to remote database');
+                      console.error(error);
+                    });
+                    
 
                 } else {
                     //offline requested, we stops the synchronization
@@ -194,7 +221,7 @@
                 var deferred = $q.defer();
                 try
                 {
-                    that.db.post(angular.copy(item)).then(
+                    that.localDb.post(angular.copy(item)).then(
                         function(res) {
                             item._rev = res.rev;
                             item._id = res.id;
@@ -210,7 +237,7 @@
             }
             function remove(itemOrId) {
                 var item = angular.isString(itemOrId) ? pouchObject.collection[itemOrId] : itemOrId;
-                that.db.remove(item);
+                that.localDb.remove(item);
             }
 
             function update(itemOrId) {
@@ -221,9 +248,9 @@
                         copy[key] = value;
                     }
                 });
-                that.db.get(item._id).then(
+                that.localDb.get(item._id).then(
                     function(res) {
-                        that.db.put(copy, res._rev);
+                        that.localDb.put(copy, res._rev);
                     }
                 );
             }
@@ -278,7 +305,7 @@
             function updateCollection(change)
             {
                 if (typeof change.deleted === 'undefined') {
-                    that.db.get(change._id).then(function(data) {
+                    that.localDb.get(change._id).then(function(data) {
                         if (typeof pouchObject.indexes[change._id] === 'undefined') { // CREATE / READ
                             addChild(pouchObject.collection.length, new PouchDbItem(data, pouchObject.collection.length)); // Add to end
                             updateIndexes(0);
@@ -294,7 +321,7 @@
                 }
             }
 
-            that.db.changes({
+            that.localDb.changes({
                 live: true,
                 onChange: function(change) {
                     updateCollection(change);

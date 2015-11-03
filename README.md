@@ -58,6 +58,20 @@ add-cors-to-couchdb http://localhost:5984 -u myusername -p mypassword
 
 ## Installation du service couchDb ##
 attention l'installer dans un répertoire sans espace sur windows
+activation securité http://wiki.apache.org/couchdb/Security_Features_Overview
+et création utilisateur (mot de passe créé via https://coveloping.com/tools/hash-generator)
+{
+   "_id": "org.couchdb.user:fchastanet",
+   "_rev": "1-05ee37669e1c693cf06ef403329ae122",
+   "type": "user",
+   "name": "fchastanet",
+   "roles": [
+       "editor"
+   ],
+   "password_sha": "dae547063e410ba7134f0ca3730005d330ee3301",
+   "salt": "4e170ffeb6f34daecfd814dfb4001a73"
+}
+
 
 ## installation de tous les modules néssaires (utilise package.json) ##
 ```
