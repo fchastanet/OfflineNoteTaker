@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "pouchdb": "fchastanet/pouchdb#5.0.2",
-    "angular": "1.4.3",
+    "angular": "~1.4.3",
     "toastr": "CodeSeven/toastr#v3",
     "moment": "~2.6.0",
     "jquery": "~2.1.0",
