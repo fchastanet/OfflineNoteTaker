@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/fchastanet/OfflineNoteTaker.png?label=ready&title=Ready)](https://waffle.io/fchastanet/OfflineNoteTaker)
 # OfflineNoteTaker
 HTML5 AngularJs pouchDB Ionic
 
