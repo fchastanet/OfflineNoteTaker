@@ -6,32 +6,33 @@ HTML5 AngularJs pouchDB Ionic
 **V1 :** list nodes, create and view a simple node(title + content) + beta synchronization with couchdb server
 
 # Configuration #
+Depuis machine virtuelle ubuntuServer 15
+
+## Installer NodeJs en local (pas de sudo) ##
+```
+#!bash
+sudo apt-get install python
+echo 'export PATH=$HOME/local/bin:$PATH' >> ~/.bashrc
+. ~/.bashrc
+mkdir ~/local
+mkdir ~/node-latest-install
+cd ~/node-latest-install
+curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
+./configure --prefix=~/local
+make install # ok, fine, this step probably takes more than 30 seconds...
+curl https://www.npmjs.org/install.sh | sh
+```
 
 ## Proxy pour NPM ##
 avec fiddler
 ```
 #!bash
-
+ 
 npm config set proxy http://localhost:8888
 npm config set https-proxy http://localhost:8888
 npm config set strict-ssl false
 npm config set registry "http://registry.npmjs.org/"
 
-```
-
-[http://stackoverflow.com/questions/2989466/configuring-fiddler-to-use-company-networks-proxy](http://stackoverflow.com/questions/2989466/configuring-fiddler-to-use-company-networks-proxy)
-
-[http://stackoverflow.com/questions/7559648/is-there-a-way-to-make-npm-install-the-command-to-work-behind-proxy](http://stackoverflow.com/questions/7559648/is-there-a-way-to-make-npm-install-the-command-to-work-behind-proxy) 
-
-
-## Proxy pour Bower ##
-Ajouter les 2 lignes suivantes dans le fichier .bowerrc
-```
-#!json
-
-    "proxy":"http://localhost:8888",
-    "https-proxy":"http://localhost:8888",
-    "strict-ssl": false
 ```
 
 ## proxy pour git ##
@@ -48,19 +49,33 @@ variable HOME à spécifier pour que git sache où stocker le fichier .gitconfig
 ## Installation de cordova, ionic et gulp(watch css/js) de manière globale ##
 ```
 #!bash
-npm install -g cordova ionic gulp bower brunch add-cors-to-couchdb uglify-js karma-cli
+
+npm install -g cordova ionic gulp bower brunch add-cors-to-couchdb uglify-js karma-cli browserify
 ```
  
-## Activation de cors ##
+## Installation du service couchDb ##
+[[https://wiki.apache.org/couchdb/Installing_on_Ubuntu]]
 ```
 #!bash
-add-cors-to-couchdb http://localhost:5984 -u myusername -p mypassword
+
+sudo apt-get install couchdb -y
 ```
 
-## Installation du service couchDb ##
-attention l'installer dans un répertoire sans espace sur windows
 activation securité http://wiki.apache.org/couchdb/Security_Features_Overview
-et création utilisateur (mot de passe créé via https://coveloping.com/tools/hash-generator)
+génération mot de passe:
+```
+#!bash
+
+$ SALT=`openssl rand 16 | openssl md5`
+$ echo salt=$SALT
+salt=b7774c617642099bbe6233e9ee08a8eb
+$ echo -n "foobar$SALT" | openssl sha1
+b79393894929362b5ba006ce210467fec5bae9ef
+```
+et création utilisateur :
+```
+#!json
+
 {
    "_id": "org.couchdb.user:fchastanet",
    "_rev": "1-05ee37669e1c693cf06ef403329ae122",
@@ -72,9 +87,16 @@ et création utilisateur (mot de passe créé via https://coveloping.com/tools/h
    "password_sha": "dae547063e410ba7134f0ca3730005d330ee3301",
    "salt": "4e170ffeb6f34daecfd814dfb4001a73"
 }
+```
 
+## Activation de cors ##
+```
+#!bash
+add-cors-to-couchdb http://localhost:5984 -u myusername -p mypassword
+```
 
 ## installation de tous les modules néssaires (utilise package.json) ##
+on n'utilise pas bower mais npm lui-même pour tout installer : [[https://gofore.com/ohjelmistokehitys/stop-using-bower/]]
 ```
 #!bash
 npm install
