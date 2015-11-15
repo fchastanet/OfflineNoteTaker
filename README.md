@@ -8,6 +8,13 @@ HTML5 AngularJs pouchDB Ionic
 # Configuration #
 Depuis machine virtuelle ubuntuServer 15
 
+## Redirection de ports ##
+ssh host 2022 => guest 22
+ionicWebserver host 8100 => guest 8100
+ionicReloadServer host 35729 => guest 35729
+couchDb hosts 5984 => guest 5984
+couchDbSsl hosts 6984 => guest 6984
+
 ## Installer NodeJs en local (pas de sudo) ##
 ```
 #!bash
@@ -50,7 +57,7 @@ variable HOME à spécifier pour que git sache où stocker le fichier .gitconfig
 ```
 #!bash
 
-npm install -g cordova ionic gulp bower brunch add-cors-to-couchdb uglify-js karma-cli browserify
+npm install -g cordova ionic gulp bower brunch uglify-js karma-cli browserify
 ```
  
 ## Installation du service couchDb ##
@@ -66,11 +73,7 @@ génération mot de passe:
 ```
 #!bash
 
-$ SALT=`openssl rand 16 | openssl md5`
-$ echo salt=$SALT
-salt=b7774c617642099bbe6233e9ee08a8eb
-$ echo -n "foobar$SALT" | openssl sha1
-b79393894929362b5ba006ce210467fec5bae9ef
+./couchDBPasswordGenerator.sh
 ```
 et création utilisateur :
 ```
@@ -92,7 +95,20 @@ et création utilisateur :
 ## Activation de cors ##
 ```
 #!bash
+npm install -g add-cors-to-couchdb
 add-cors-to-couchdb http://localhost:5984 -u myusername -p mypassword
+```
+ou manuellement plus simple (car add-cors-to-couchdb ne fonctionne pas avec node sous ubuntu, nécessite installation package nodejs-legacy)
+```
+#!bash
+
+HOST=http://adminname:password@localhost:5984 # or whatever you got
+
+curl -X PUT $HOST/_config/httpd/enable_cors -d '"true"'
+curl -X PUT $HOST/_config/cors/origins -d '"*"'
+curl -X PUT $HOST/_config/cors/credentials -d '"true"'
+curl -X PUT $HOST/_config/cors/methods -d '"GET, PUT, POST, HEAD, DELETE"'
+curl -X PUT $HOST/_config/cors/headers -d '"accept, authorization, content-type, origin, referer, x-csrf-token"'
 ```
 
 ## installation de tous les modules néssaires (utilise package.json) ##

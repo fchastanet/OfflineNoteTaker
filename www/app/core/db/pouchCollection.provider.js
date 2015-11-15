@@ -19,11 +19,11 @@
                 }
             },
             remoteDb: {
-                collectionUrl: undefined
+                collectionUrl: undefined,
                 options: {
                     skipSetup: true
-                },
-                user {
+                }, 
+                user: {
                     name: 'fchastanet', //TODO
                     password: 'fchastanet'
                 }
@@ -33,7 +33,7 @@
                     live: true, 
                     retry: true
                 }
-            }
+            },
             debug: false
         };
         this.localDb = null;
@@ -51,7 +51,7 @@
             if (that.config.debug) {
                 $window.PouchDB.debug.enable('*');
             }            
-            console.log('db.adapter :'+ that.localDb.adapter);
+            console.log('db.adapter :' + that.localDb.adapter);
 
             /**
              * @class item in the collection
@@ -121,8 +121,8 @@
 
                 that.localDb.get(itemId, {include_docs: true,attachments: true}).then(function (doc) {
                     deferred.resolve(doc);  
-                }).catch(function (err) {
-                  deferred.reject({errorCode:'processError', error:err});
+                }).catch(function (err) { 
+                    deferred.reject({errorCode:'processError', error:err});
                 });
                 
                 return deferred.promise;
@@ -143,17 +143,17 @@
                 var deferred = $q.defer();
                 if (pouchObject.sync == null) { // Read http://pouchdb.com/api.html#sync
                     //online requested
-                    var remoteCouch = that.config.remoteDb.collectionUrl+that.config.dbName;
+                    var remoteCouch = that.config.remoteDb.collectionUrl + that.config.dbName;
                     var remoteDb = new $window.PouchDB(remoteCouch, that.config.remoteDb.options);
                     var ajaxOpts = {
-                      ajax: {
-                        headers: {
-                          Authorization: 'Basic ' + $window.btoa(that.config.remoteDb.user.name + ':' + that.config.remoteDb.user.password)
+                        ajax: {
+                            headers: {
+                                Authorization: 'Basic ' + $window.btoa(that.config.remoteDb.user.name + ':' + that.config.remoteDb.user.password)
+                            }
                         }
-                      }
                     };
 
-                    remoteDb.login(that.config.user.name, that.config.user.password, ajaxOpts).then(function() {
+                    remoteDb.login(that.config.remoteDb.user.name, that.config.remoteDb.user.password, ajaxOpts).then(function() {
                         pouchObject.sync = pouchObject.localDb.sync(remoteDb, that.config.sync.options, syncError)
                             .on('change', function (info) {
                                 // handle change
@@ -195,15 +195,14 @@
                         function syncError(error, result) {
                             // handle error
                             logger.error('error while syncing ...', error);
-                            var result = {data:(error)?error:result, code:'error', status:'running'};
+                            result = {data:(error) ? error : result, code:'error', status:'running'};
                             deferred.reject(result);
                             cancelSync(deferred); //TODO forcément déconnecté ?
                         }                
                     }).catch(function(error) {
-                      logger.info('Failed to connect to remote database');
-                      console.error(error);
-                    });
-                    
+                        logger.info('Failed to connect to remote database');
+                        console.error(error);
+                    });                    
 
                 } else {
                     //offline requested, we stops the synchronization
