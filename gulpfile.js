@@ -1,7 +1,6 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
     ngAnnotate = require('gulp-ng-annotate'),
-    browserify = require('browserify'),
     through = require('through2'),
     uglify = require('gulp-uglify'),
     globby = require('globby'),
@@ -16,8 +15,8 @@ var gulp = require('gulp'),
     exec = require('child_process').exec,
     path = require('path'),
     mergeStream = require('merge-stream'),
-    rework = require('gulp-rework'),
-    reworkUrl = require('rework-plugin-url'),
+    reworkCss = require('gulp-reworkCss'),
+    reworkCssUrl = require('rework-plugin-url'),
     source = require('vinyl-source-stream');
 
 var paths = {
@@ -38,13 +37,15 @@ var paths = {
                 './node_modules/toastr/dist/toastr.js',
                 './node_modules/moment/moment.js',
                 './node_modules/pouchdb/dist/pouchdb.js',
+                './node_modules/pouchdb-authentication/dist/pouchdb.authentication.js',
                 './node_modules/angular-ui-router/release/angular-ui-router.js',
             ],
             destFile: 'dependencies.bundled.js'
         },
         css: {
             list: [
-                './node_modules/toastr/dist/toastr.css'
+                './node_modules/toastr/dist/toastr.css',
+                './www/css/ionic.app.css'
             ],
             destFile: 'dependencies.bundled.css'
         },
@@ -59,7 +60,7 @@ var paths = {
 
 };
 
-gulp.task('default', ['javascript', 'sass', 'browserify', 'cssIfy', 'copyLibDependencies']);
+gulp.task('default', ['javascript', 'sass', 'jsBundle', 'cssBundle', 'copyLibDependencies']);
 
 gulp.task('watch', function(done) {
     gulp.watch(paths.designDocument).on('change', 
@@ -129,54 +130,47 @@ gulp.task('watch', function(done) {
             return done();
         }
     );
-    gulp.watch(paths.javascript, ['javascript']);
-    gulp.watch(paths.sass, ['sass']);
+    gulp.watch(paths.appJavascriptSrc, ['javascript']);
+    gulp.watch(paths.sass, ['cssBundle']);
 });
 
-gulp.task('browserify', function() {
-    // gulp expects tasks to return a stream, so we create one here.
-    var bundledStream = through();
-    bundledStream
-        // turns the output bundle stream into a stream containing
-        // the normal attributes gulp plugins expect.
-        .pipe(source(paths.dependencies.js.destFile))
-        // the rest of the gulp task, as you would normally write it.
-        // here we're copying from the Browserify + Uglify2 recipe.
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-          // Add gulp plugins to the pipeline here.
-          .pipe(uglify())
-          .on('error', gutil.log)
-        .pipe(sourcemaps.write(paths.javascriptMapDest))
-        .pipe(gulp.dest(paths.javascriptDest));
+gulp.task('jsBundle', function() {
+    return gulp.src(paths.dependencies.js.list)
+        .pipe(concat(paths.dependencies.js.destFile))
+        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest(paths.javascriptDest))
+        .pipe(uglify())
+        .pipe(rename({
+            extname: '.min.js'
+        }))
+        .pipe(gulp.dest(paths.javascriptDest))
+});
 
-    // "globby" replaces the normal "gulp.src" as Browserify
-    // creates it's own readable stream.
-    globby(paths.dependencies.js.list).then(function(entries) {
-        // create the Browserify instance.
-        var b = browserify({
-            entries: entries,
-            debug : !gutil.env.production,
+gulp.task('cssBundle', ['sass', 'concatCompressCss']);
+
+gulp.task('sass', function(done) {
+    gulp.src(paths.sass)
+        .pipe(sass({
+            errLogToConsole: true
+        }))
+        .pipe(reworkCss(
+            reworkCssUrl(function(url) {
+                return url.replace('/node_modules/ionic-bower', '');
+            }),
+            {sourcemap: true}
+        ))
+        .pipe(gulp.dest('./www/css/'))
+        .on('end', function() {
+            gulp.start('concatCompressCss');
+            done();
         });
-
-        // pipe the Browserify stream into the stream we created earlier
-        // this starts our gulp pipeline.
-        b.bundle().pipe(bundledStream);
-    }).catch(function(err) {
-        // ensure any errors from globby are handled
-        bundledStream.emit('error', err);
-    });
-
-    // finally, we return the stream, so gulp knows when this task is done.
-    return bundledStream;
 });
 
-gulp.task('cssIfy', function() {
+gulp.task('concatCompressCss', function() {
     return gulp.src(paths.dependencies.css.list)
         .pipe(concat(paths.dependencies.css.destFile))
-        .pipe(rework(
-            reworkUrl(function(url) {
-                process.stdout.write(url + "\n");
+        .pipe(reworkCss(
+            reworkCssUrl(function(url) {
                 return url.replace('/node_modules/ionic-bower', '');
             }),
             {sourcemap: true}
@@ -197,25 +191,7 @@ gulp.task('copyLibDependencies', function() {
     });
 });
 
-gulp.task('sass', function(done) {
-    gulp.src('./scss/ionic.app.scss')
-        .pipe(sass({
-            errLogToConsole: true
-        }))
-        .pipe(rework(
-            reworkUrl(function(url) {
-                return url.replace('/node_modules/ionic-bower', '');
-            }),
-            {sourcemap: true}
-        ))
-        .pipe(gulp.dest('./www/css/'))
-        .pipe(csso())
-        .pipe(rename({
-            extname: '.min.css'
-        }))
-        .pipe(gulp.dest('./www/css/'))
-        .on('end', done);
-});
+
 
 gulp.task('javascript', function() {
     gulp.src(paths.appJavascriptSrc)
