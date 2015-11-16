@@ -74,6 +74,7 @@
     "mkdirp": "^0.5.1",
     "napa": "^2.0.2",
     "ng-annotate": "^0.14.1",
+    "rework-plugin-url": "^1.1.0",
     "rimraf": "^2.4.3",
     "semantic-release": "^4.3.5",
     "shelljs": "^0.3.0",

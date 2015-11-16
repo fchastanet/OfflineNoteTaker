@@ -17,6 +17,7 @@ var gulp = require('gulp'),
     path = require('path'),
     mergeStream = require('merge-stream'),
     rework = require('gulp-rework'),
+    reworkUrl = require('rework-plugin-url'),
     source = require('vinyl-source-stream');
 
 var paths = {
@@ -47,11 +48,18 @@ var paths = {
             ],
             destFile: 'dependencies.bundled.css'
         },
+        copy: [
+            {
+                files:'./node_modules/ionic-bower/fonts/*',
+                base:'./node_modules/ionic-bower/fonts',
+                dest: './www/fonts'
+            }
+        ]
     }
 
 };
 
-gulp.task('default', ['javascript', 'sass', 'browserify', 'cssIfy']);
+gulp.task('default', ['javascript', 'sass', 'browserify', 'cssIfy', 'copyLibDependencies']);
 
 gulp.task('watch', function(done) {
     gulp.watch(paths.designDocument).on('change', 
@@ -166,7 +174,13 @@ gulp.task('browserify', function() {
 gulp.task('cssIfy', function() {
     return gulp.src(paths.dependencies.css.list)
         .pipe(concat(paths.dependencies.css.destFile))
-        .pipe(rework({sourcemap: true}))
+        .pipe(rework(
+            reworkUrl(function(url) {
+                process.stdout.write(url + "\n");
+                return url.replace('/node_modules/ionic-bower', '');
+            }),
+            {sourcemap: true}
+        ))
         .pipe(gulp.dest(paths.cssDest))
         .pipe(csso())
         .pipe(rename({
@@ -175,12 +189,25 @@ gulp.task('cssIfy', function() {
         .pipe(gulp.dest(paths.cssDest));
 });
 
+gulp.task('copyLibDependencies', function() {
+    paths.dependencies.copy.forEach(function(copy) {
+        gulp
+            .src(copy.files, {base: copy.base})
+            .pipe(gulp.dest(copy.dest));
+    });
+});
+
 gulp.task('sass', function(done) {
     gulp.src('./scss/ionic.app.scss')
         .pipe(sass({
             errLogToConsole: true
         }))
-        .pipe(rework({sourcemap: true}))
+        .pipe(rework(
+            reworkUrl(function(url) {
+                return url.replace('/node_modules/ionic-bower', '');
+            }),
+            {sourcemap: true}
+        ))
         .pipe(gulp.dest('./www/css/'))
         .pipe(csso())
         .pipe(rename({
